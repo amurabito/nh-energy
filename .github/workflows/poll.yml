@@ -1,0 +1,35 @@
+name: Daily NH Energy Supplier Scrape
+
+on:
+  schedule:
+    - cron: '0 13 * * *' # Runs at 9:00 AM EST once per day
+  workflow_dispatch: 
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4
+
+      - name: Run scraper
+        run: python scraper.py
+
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "Update NH energy suppliers data (CSV and JSON)" || exit 0
+          git push

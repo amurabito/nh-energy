@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NH Electricity Supplier Comparison</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- ChartJS & PapaParse -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        :root {
+            --bg: #070b13;
+            --panel: #0f1626;
+            --border: #1e293b;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            
+            /* Utility Specific Brand Colors */
+            --brand-Unitil: #06b6d4;      /* Cyan */
+            --brand-Eversource: #fbbf24;  /* Gold */
+            --brand-Liberty: #10b981;     /* Emerald */
+            --brand-NHEC: #a855f7;        /* Purple */
+            
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 75%; /* Enforced 75% width per design requirement */
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.05rem;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 5px;
+        }
+
+        .meta-info {
+            text-align: right;
+        }
+
+        .meta-info small {
+            display: block;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .meta-info strong {
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        /* Utility Selector Tabs */
+        .utility-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+            background: rgba(15, 22, 38, 0.5);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text);
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .tab-btn.active[data-utility="Unitil"] {
+            border-color: var(--brand-Unitil);
+            color: #fff;
+            background: rgba(6, 182, 212, 0.15);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+
+        .tab-btn.active[data-utility="Eversource"] {
+            border-color: var(--brand-Eversource);
+            color: #fff;
+            background: rgba(251, 191, 36, 0.15);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+        }
+
+        .tab-btn.active[data-utility="Liberty"] {
+            border-color: var(--brand-Liberty);
+            color: #fff;
+            background: rgba(16, 182, 129, 0.15);
+            box-shadow: 0 0 15px rgba(16, 182, 129, 0.1);
+        }
+
+        .tab-btn.active[data-utility="NHEC"] {
+            border-color: var(--brand-NHEC);
+            color: #fff;
+            background: rgba(168, 85, 247, 0.15);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+        }
+
+        .tab-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .tab-btn[data-utility="Unitil"] .tab-indicator { background: var(--brand-Unitil); }
+        .tab-btn[data-utility="Eversource"] .tab-indicator { background: var(--brand-Eversource); }
+        .tab-btn[data-utility="Liberty"] .tab-indicator { background: var(--brand-Liberty); }
+        .tab-btn[data-utility="NHEC"] .tab-indicator { background: var(--brand-NHEC); }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--active-brand-color, var(--border));
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--active-brand-color, var(--border));
+        }
+
+        .kpi-card.savings-highlight::before {
+            background: var(--success);
+        }
+
+        .kpi-card.savings-highlight {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: linear-gradient(135deg, var(--panel) 0%, rgba(16, 185, 129, 0.03) 100%);
+        }
+
+        .kpi-label {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.1;
+            margin: 5px 0;
+        }
+
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+        }
+
+        .kpi-subtext.positive {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Layout Grid */
+        .grid-2x1 {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            letter-spacing: -0.02rem;
+        }
+
+        .card h2 span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th {
+            padding: 14px 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+            color: var(--text);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(30, 41, 59, 0.2);
+        }
+
+        .supplier-name-col {
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .supplier-name-col small {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .rate-value {
+            font-size: 1.15rem;
+            font-weight: 800;
+            font-feature-settings: "tnum";
+        }
+
+        .badge-term {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+            display: inline-block;
+        }
+
+        .badge-term.term-long {
+            border-color: rgba(168, 85, 247, 0.4);
+            color: #d8b4fe;
+            background: rgba(168, 85, 247, 0.08);
+        }
+
+        .badge-term.term-medium {
+            border-color: rgba(6, 182, 212, 0.4);
+            color: #67e8f9;
+            background: rgba(6, 182, 212, 0.08);
+        }
+
+        .btn-switch {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            background: var(--active-brand-color, #1e293b);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-switch:hover {
+            filter: brightness(1.15);
+            transform: translateY(-1px);
+        }
+
+        .no-data-msg {
+            color: var(--text-muted);
+            text-align: center;
+            padding: 40px 0;
+            font-style: italic;
+        }
+
+        .faqs-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid var(--border);
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            transition: var(--transition);
+            color: var(--text);
+        }
+
+        .faqs-link:hover {
+            border-color: var(--active-brand-color, var(--border));
+            background: rgba(30, 41, 59, 0.5);
+        }
+
+        .faqs-link-text h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .faqs-link-text p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .faqs-arrow {
+            color: var(--active-brand-color, var(--text-muted));
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 100%;
+            }
+            .grid-2x1, .grid-2x2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Dashboard Header -->
+        <header>
+            <div>
+                <h1>NH Energy Supplier Trends</h1>
+                <p class="subtitle">Compare residential electricity options with NO cancellation fees & NO introductory pricing</p>
+            </div>
+            <div class="meta-info">
+                <small>Last Data Refresh</small>
+                <strong id="last-update">Loading...</strong>
+            </div>
+        </header>
+
+        <!-- Utility Selection Tabs -->
+        <div class="utility-selector" id="utility-tabs"></div>
+
+        <!-- KPI Summary Cards -->
+        <div class="kpi-grid" id="kpi-container"></div>
+
+        <!-- Visualizations Area -->
+        <div class="grid-2x1">
+            <!-- Price Comparison Chart -->
+            <div class="card">
+                <h2>Price Distribution & Savings Baseline <span id="dist-sub">Comparing $/kWh active rates</span></h2>
+                <div class="chart-container" style="height: 330px;">
+                    <canvas id="distChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Term Duration Doughnut -->
+            <div class="card">
+                <h2>Plan Rate Guarantee Length</h2>
+                <div class="chart-container" style="height: 330px; display: flex; align-items: center; justify-content: center;">
+                    <canvas id="termChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Suppliers List Table -->
+        <div class="card" style="margin-bottom: 30px;">
+            <h2>Available Fixed Price Suppliers <span id="table-sub">0 options match standard criteria</span></h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Supplier & Plan</th>
+                            <th>Supply Rate</th>
+                            <th>Price Guarantee</th>
+                            <th>Cancellation Fee</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="supplier-rows">
+                        <tr>
+                            <td colspan="5" class="no-data-msg">Loading supplier rates...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Visualizations History Area -->
+        <div class="grid-2x2">
+            <!-- Historical Trends -->
+            <div class="card">
+                <h2>Cheapest Supply vs. Baseline Trend</h2>
+                <div class="chart-container" style="height: 300px;">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Context Info -->
+            <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                    <h2 style="margin-bottom: 12px;">Choosing Suppliers Wisely</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
+                        In New Hampshire, electric bills are divided into <strong>Supply</strong> and <strong>Delivery</strong>. 
+                        Choosing a competitive supplier replaces only the supply portion of your bill. 
+                        Your local utility will still deliver the power, maintain wires, restore service in outages, and bill you.
+                    </p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px;">
+                        This dashboard exclusively tracks suppliers that feature <strong>$0 cancellation fees</strong> (no risk of being locked in if market rates fall) 
+                        and <strong>no introductory pricing</strong> (ensuring your rate stays fixed for the full stated term instead of rising sharply after 2-3 months).
+                    </p>
+                </div>
+                
+                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" target="_blank" class="faqs-link">
+                    <div class="faqs-link-text">
+                        <h3>Official NH Supplier FAQs</h3>
+                        <p>Learn more about deregulation, net metering, and shopping rules</p>
+                    </div>
+                    <div class="faqs-arrow">→</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const UTILITIES = [
+        { id: 'Unitil', name: 'Unitil (UES)', color: '#06b6d4' },
+        { id: 'Eversource', name: 'Eversource (PSNH)', color: '#fbbf24' },
+        { id: 'Liberty', name: 'Liberty Utilities', color: '#10b981' },
+        { id: 'NHEC', name: 'NH Electric Co-op', color: '#a855f7' }
+    ];
+
+    let currentUtility = 'Unitil';
+    let rawHistory = [];
+    let suppliersData = [];
+    let charts = {};
+
+    async function init() {
+        try {
+            const [csvR, jsonR] = await Promise.all([
+                fetch('data.csv'),
+                fetch('suppliers.json')
+            ]);
+            
+            if (csvR.ok) {
+                const csvText = await csvR.text();
+                rawHistory = Papa.parse(csvText, { header: true, skipEmptyLines: true }).data;
+            }
+            
+            if (jsonR.ok) {
+                suppliersData = await jsonR.json();
+            }
+
+            setupUI();
+            updateUtility(currentUtility);
+        } catch (e) {
+            console.error("Error loading data: ", e);
+            document.getElementById('supplier-rows').innerHTML = `
+                <tr>
+                    <td colspan="5" class="no-data-msg" style="color: var(--danger);">
+                        Failed to load supplier data. Make sure you run scraper.py first to generate the datasets.
+                    </td>
+                </tr>`;
+        }
+    }
+
+    function setupUI() {
+        const tabsContainer = document.getElementById('utility-tabs');
+        tabsContainer.innerHTML = '';
+        
+        UTILITIES.forEach(u => {
+            const btn = document.createElement('button');
+            btn.className = `tab-btn ${u.id === currentUtility ? 'active' : ''}`;
+            btn.dataset.utility = u.id;
+            btn.innerHTML = `<span class="tab-indicator"></span>${u.name}`;
+            btn.onclick = () => updateUtility(u.id);
+            tabsContainer.appendChild(btn);
+        });
+
+        if (rawHistory.length > 0) {
+            const latestRecord = rawHistory[rawHistory.length - 1];
+            document.getElementById('last-update').innerText = latestRecord.date;
+        } else {
+            document.getElementById('last-update').innerText = new Date().toLocaleDateString();
+        }
+    }
+
+    function updateUtility(utilityId) {
+        currentUtility = utilityId;
+        
+        // Update active tab styles
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.utility === utilityId);
+        });
+
+        // Set utility color theme variable
+        const activeUtil = UTILITIES.find(u => u.id === utilityId);
+        document.documentElement.style.setProperty('--active-brand-color', activeUtil.color);
+
+        refreshDashboard();
+    }
+
+    const UNITIL_BASE_RATE = 0.12061;
+
+    function refreshDashboard() {
+        // Filter suppliers for current utility
+        const filtered = suppliersData.filter(s => s.utility_id === currentUtility);
+        const utilityMeta = UTILITIES.find(u => u.id === currentUtility);
+        
+        // Find default utility baseline rate
+        let defaultRate = 0.12061;
+        if (currentUtility === 'Eversource') defaultRate = 0.10542;
+        else if (currentUtility === 'Liberty') defaultRate = 0.11790;
+        else if (currentUtility === 'NHEC') defaultRate = 0.11150;
+
+        // Stats calculation
+        const count = filtered.length;
+        const cheapest = count > 0 ? filtered[0] : null;
+        const avgRate = count > 0 ? filtered.reduce((a, b) => a + b.rate, 0) / count : 0;
+        
+        // Percentage change compared to current Unitil rate ($0.12061)
+        let changePct = 0;
+        if (cheapest) {
+            changePct = ((cheapest.rate - UNITIL_BASE_RATE) / UNITIL_BASE_RATE) * 100;
+        }
+
+        // Render KPI Blocks
+        renderKPIs(count, cheapest, defaultRate, changePct, avgRate);
+
+        // Render Tables
+        renderSupplierTable(filtered);
+
+        // Render Price Distribution Chart
+        renderDistributionChart(filtered, defaultRate, utilityMeta.color);
+
+        // Render Term Guarantees Doughnut Chart
+        renderTermChart(filtered);
+
+        // Render Historical Trend Chart
+        renderTrendChart(defaultRate, utilityMeta.color);
+    }
+
+    function renderKPIs(count, cheapest, defaultRate, changePct, avgRate) {
+        const container = document.getElementById('kpi-container');
+        
+        let cheapestVal = cheapest ? `${cheapest.rate.toFixed(5)} <span style="font-size: 0.9rem; font-weight: 500;">$/kWh</span>` : 'N/A';
+        let cheapestName = cheapest ? cheapest.name : 'No qualified offers';
+        
+        let changeColor = changePct < 0 ? 'var(--success)' : (changePct === 0 ? 'var(--text)' : 'var(--danger)');
+        let changeSign = changePct > 0 ? '+' : '';
+        
+        let savingsHTML = cheapest ? `
+            <div class="kpi-card ${changePct < 0 ? 'savings-highlight' : ''}" style="--active-brand-color: ${changeColor};">
+                <span class="kpi-label">% Change vs. Unitil Baseline</span>
+                <div class="kpi-value" style="color: ${changeColor};">${changeSign}${changePct.toFixed(1)}%</div>
+                <span class="kpi-subtext">Compared to Unitil rate: $0.12061</span>
+            </div>
+        ` : `
+            <div class="kpi-card">
+                <span class="kpi-label">% Change vs. Unitil Baseline</span>
+                <div class="kpi-value">N/A</div>
+                <span class="kpi-subtext">Compared to Unitil rate: $0.12061</span>
+            </div>
+        `;
+
+        container.innerHTML = `
+            <!-- KPI 1: Cheapest Rate -->
+            <div class="kpi-card">
+                <span class="kpi-label">Cheapest Supplier Rate</span>
+                <div class="kpi-value" style="color: var(--success);">${cheapestVal}</div>
+                <span class="kpi-subtext">Provided by <strong>${cheapestName}</strong></span>
+            </div>
+            
+            <!-- KPI 2: Utility Default Rate -->
+            <div class="kpi-card">
+                <span class="kpi-label">Utility Default Baseline</span>
+                <div class="kpi-value">${defaultRate.toFixed(5)} <span style="font-size: 0.9rem; font-weight: 500;">$/kWh</span></div>
+                <span class="kpi-subtext">Utility default supply charge</span>
+            </div>
+            
+            <!-- KPI 3: % Change vs Unitil -->
+            ${savingsHTML}
+            
+            <!-- KPI 4: Options -->
+            <div class="kpi-card">
+                <span class="kpi-label">Qualified Options</span>
+                <div class="kpi-value">${count}</div>
+                <span class="kpi-subtext">Average market rate: <strong>${avgRate > 0 ? avgRate.toFixed(5) : '0.00000'}</strong></span>
+            </div>
+        `;
+    }
+
+    function renderSupplierTable(suppliers) {
+        const tbody = document.getElementById('supplier-rows');
+        const subtitle = document.getElementById('table-sub');
+        
+        subtitle.innerText = `${suppliers.length} qualifying option${suppliers.length === 1 ? '' : 's'} found`;
+        
+        if (suppliers.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="5" class="no-data-msg">
+                        No active competitive suppliers matching the criteria (No Fee + No Intro Rate) are available for this utility.
+                    </td>
+                </tr>`;
+            return;
+        }
+
+        let html = '';
+        suppliers.forEach((s, idx) => {
+            const isWinner = idx === 0;
+            const changePct = ((s.rate - UNITIL_BASE_RATE) / UNITIL_BASE_RATE) * 100;
+            const changeSign = changePct > 0 ? '+' : '';
+            const changeColor = changePct < 0 ? 'var(--success)' : (changePct === 0 ? 'var(--text)' : 'var(--danger)');
+            const changeText = `<span style="color: ${changeColor}; font-size: 0.75rem; font-weight: 600;">${changeSign}${changePct.toFixed(1)}% vs. Unitil default</span>`;
+
+            // Term duration badge color coding
+            let termBadgeClass = 'badge-term';
+            if (s.term.includes('24') || s.term.includes('36')) {
+                termBadgeClass = 'badge-term term-long';
+            } else if (s.term.includes('12') || s.term.includes('18')) {
+                termBadgeClass = 'badge-term term-medium';
+            }
+
+            html += `
+                <tr>
+                    <td>
+                        <div class="supplier-name-col">
+                            <span>${s.name} ${isWinner ? '👑' : ''}</span>
+                            <small>${s.plan}</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rate-value" style="color: ${s.rate < UNITIL_BASE_RATE ? 'var(--success)' : 'inherit'}">
+                            $${s.rate.toFixed(5)} <span style="font-size:0.7rem; color:var(--text-muted);">/ kWh</span>
+                        </div>
+                        ${changeText}
+                    </td>
+                    <td>
+                        <span class="${termBadgeClass}">${s.term}</span>
+                    </td>
+                    <td>
+                        <span style="color: var(--success); font-weight: 600; font-size: 0.85rem;">$0.00</span> (Fee-Free)
+                    </td>
+                    <td>
+                        <a href="${s.link}" target="_blank" class="btn-switch">Switch & Save</a>
+                    </td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = html;
+    }
+
+    function renderDistributionChart(suppliers, defaultRate, brandColor) {
+        if (charts.dist) charts.dist.destroy();
+
+        if (suppliers.length === 0) {
+            return;
+        }
+
+        const labels = suppliers.map(s => s.name);
+        const rates = suppliers.map(s => s.rate);
+        
+        // Dynamic colors: Green if cheaper than baseline, Red/Orange if more expensive
+        const barColors = suppliers.map(s => s.rate < defaultRate ? 'rgba(16, 185, 129, 0.75)' : 'rgba(239, 68, 68, 0.6)');
+        const borderColors = suppliers.map(s => s.rate < defaultRate ? '#10b981' : '#ef4444');
+
+        const ctx = document.getElementById('distChart').getContext('2d');
+        charts.dist = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Supply Price ($/kWh)',
+                        data: rates,
+                        backgroundColor: barColors,
+                        borderColor: borderColors,
+                        borderWidth: 1.5,
+                        borderRadius: 6,
+                        maxBarThickness: 45
+                    }
+                ]
+            },
+            options: {
+                onClick: (e, elements) => {
+                    if (elements.length > 0) {
+                        const idx = elements[0].index;
+                        const url = suppliers[idx].link;
+                        if (url && url !== '#') {
+                            window.open(url, '_blank');
+                        }
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#cbd5e1',
+                        borderColor: '#334155',
+                        borderWidth: 1,
+                        padding: 10,
+                        callbacks: {
+                            afterLabel: function(context) {
+                                const s = suppliers[context.dataIndex];
+                                return `Plan: ${s.plan}\nDuration: ${s.term}\nExit Fee: $0.00\nClick bar to switch!`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#94a3b8', font: { family: 'Outfit' } }
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 10 } }
+                    }
+                }
+            },
+            plugins: [{
+                id: 'baselineLimit',
+                afterDraw: (chart) => {
+                    const { ctx, chartArea: { left, right }, scales: { y } } = chart;
+                    const yVal = y.getPixelForValue(defaultRate);
+                    
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#ef4444';
+                    ctx.moveTo(left, yVal);
+                    ctx.lineTo(right, yVal);
+                    ctx.stroke();
+                    ctx.restore();
+
+                    // Text label for default baseline
+                    ctx.fillStyle = '#ef4444';
+                    ctx.font = 'bold 9px Outfit';
+                    ctx.fillText('UTILITY DEFAULT BASELINE: $' + defaultRate.toFixed(5), left + 10, yVal - 5);
+                }
+            }]
+        });
+    }
+
+    function renderTermChart(suppliers) {
+        if (charts.term) charts.term.destroy();
+
+        if (suppliers.length === 0) {
+            return;
+        }
+
+        // Aggregate terms
+        const termCounts = {};
+        suppliers.forEach(s => {
+            termCounts[s.term] = (termCounts[s.term] || 0) + 1;
+        });
+
+        const labels = Object.keys(termCounts);
+        const data = Object.values(termCounts);
+
+        const ctx = document.getElementById('termChart').getContext('2d');
+        charts.term = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        'rgba(6, 182, 212, 0.7)',  // Cyan
+                        'rgba(168, 85, 247, 0.7)', // Purple
+                        'rgba(16, 185, 129, 0.7)', // Green
+                        'rgba(245, 158, 11, 0.7)', // Orange
+                    ],
+                    borderColor: '#0f1626',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#cbd5e1',
+                            font: { family: 'Outfit', size: 11 },
+                            boxWidth: 12
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+    }
+
+    function renderTrendChart(defaultRate, brandColor) {
+        if (charts.trends) charts.trends.destroy();
+
+        if (rawHistory.length === 0) {
+            return;
+        }
+
+        // Extract dates and prices for active utility
+        const dates = rawHistory.map(row => row.date.split(' ')[0]);
+        const defaultHistory = rawHistory.map(row => parseFloat(row[`${currentUtility}_default`]) || defaultRate);
+        const cheapestHistory = rawHistory.map(row => parseFloat(row[`${currentUtility}_cheapest`]) || null);
+
+        const ctx = document.getElementById('trendChart').getContext('2d');
+        charts.trends = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [
+                    {
+                        label: 'Utility Baseline',
+                        data: defaultHistory,
+                        borderColor: '#ef4444',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        tension: 0.1,
+                        spanGaps: true
+                    },
+                    {
+                        label: 'Cheapest Competitor Offer',
+                        data: cheapestHistory,
+                        borderColor: brandColor,
+                        backgroundColor: brandColor + '10',
+                        fill: true,
+                        borderWidth: 3,
+                        pointRadius: 4,
+                        pointBackgroundColor: brandColor,
+                        tension: 0.2,
+                        spanGaps: true
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: { color: '#cbd5e1', font: { family: 'Outfit', size: 10 } }
+                    }
+                },
+                scales: {
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#94a3b8', font: { family: 'Outfit' } },
+                        grace: '5%'
+                    },
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8', font: { family: 'Outfit', size: 9 } }
+                    }
+                }
+            }
+        });
+    }
+
+    init();
+</script>
+</body>
+</html>
