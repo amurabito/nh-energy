@@ -361,6 +361,21 @@
             background: rgba(6, 182, 212, 0.08);
         }
 
+        .best-pill {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+            padding: 2px 7px;
+            border-radius: 9999px;
+            border: 1px solid rgba(16, 185, 129, 0.45);
+            color: #86efac;
+            background: rgba(16, 185, 129, 0.1);
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04rem;
+        }
+
         .btn-switch {
             display: inline-flex;
             align-items: center;
@@ -611,7 +626,29 @@
         refreshDashboard();
     }
 
-    const UNITIL_BASE_RATE = 0.12061;
+    function getDefaultRate(utilityId) {
+        if (utilityId === 'Eversource') return 0.10542;
+        if (utilityId === 'Liberty') return 0.11790;
+        if (utilityId === 'NHEC') return 0.11150;
+        return 0.12061;
+    }
+
+    function getBestAvailableRate(suppliers, defaultRate) {
+        const supplier = suppliers.length > 0 ? suppliers[0] : null;
+        if (!supplier || defaultRate <= supplier.rate) {
+            return {
+                name: 'Utility Default Service',
+                plan: 'Default supply rate',
+                rate: defaultRate,
+                term: 'Current default period',
+                cancellation_fee: 'No',
+                intro: 'No',
+                link: null,
+                isDefault: true
+            };
+        }
+        return { ...supplier, isDefault: false };
+    }
 
     function refreshDashboard() {
         // Filter suppliers for current utility
@@ -619,30 +656,24 @@
         const utilityMeta = UTILITIES.find(u => u.id === currentUtility);
         
         // Find default utility baseline rate
-        let defaultRate = 0.12061;
-        if (currentUtility === 'Eversource') defaultRate = 0.10542;
-        else if (currentUtility === 'Liberty') defaultRate = 0.11790;
-        else if (currentUtility === 'NHEC') defaultRate = 0.11150;
+        const defaultRate = getDefaultRate(currentUtility);
 
         // Stats calculation
         const count = filtered.length;
-        const cheapest = count > 0 ? filtered[0] : null;
+        const cheapest = getBestAvailableRate(filtered, defaultRate);
         const avgRate = count > 0 ? filtered.reduce((a, b) => a + b.rate, 0) / count : 0;
         
-        // Percentage change compared to current Unitil rate ($0.12061)
-        let changePct = 0;
-        if (cheapest) {
-            changePct = ((cheapest.rate - UNITIL_BASE_RATE) / UNITIL_BASE_RATE) * 100;
-        }
+        // Percentage change compared to the selected utility default.
+        const changePct = ((cheapest.rate - defaultRate) / defaultRate) * 100;
 
         // Render KPI Blocks
         renderKPIs(count, cheapest, defaultRate, changePct, avgRate);
 
         // Render Tables
-        renderSupplierTable(filtered);
+        renderSupplierTable(filtered, defaultRate, cheapest);
 
         // Render Price Distribution Chart
-        renderDistributionChart(filtered, defaultRate, utilityMeta.color);
+        renderDistributionChart(filtered, defaultRate, utilityMeta.color, cheapest);
 
         // Render Term Guarantees Doughnut Chart
         renderTermChart(filtered);
@@ -654,32 +685,26 @@
     function renderKPIs(count, cheapest, defaultRate, changePct, avgRate) {
         const container = document.getElementById('kpi-container');
         
-        let cheapestVal = cheapest ? `${cheapest.rate.toFixed(5)} <span style="font-size: 0.9rem; font-weight: 500;">$/kWh</span>` : 'N/A';
-        let cheapestName = cheapest ? cheapest.name : 'No qualified offers';
+        let cheapestVal = `${cheapest.rate.toFixed(5)} <span style="font-size: 0.9rem; font-weight: 500;">$/kWh</span>`;
+        let cheapestName = cheapest.name;
         
         let changeColor = changePct < 0 ? 'var(--success)' : (changePct === 0 ? 'var(--text)' : 'var(--danger)');
         let changeSign = changePct > 0 ? '+' : '';
         
-        let savingsHTML = cheapest ? `
+        let savingsHTML = `
             <div class="kpi-card ${changePct < 0 ? 'savings-highlight' : ''}" style="--active-brand-color: ${changeColor};">
-                <span class="kpi-label">% Change vs. Unitil Baseline</span>
+                <span class="kpi-label">% Change vs. Utility Default</span>
                 <div class="kpi-value" style="color: ${changeColor};">${changeSign}${changePct.toFixed(1)}%</div>
-                <span class="kpi-subtext">Compared to Unitil rate: $0.12061</span>
-            </div>
-        ` : `
-            <div class="kpi-card">
-                <span class="kpi-label">% Change vs. Unitil Baseline</span>
-                <div class="kpi-value">N/A</div>
-                <span class="kpi-subtext">Compared to Unitil rate: $0.12061</span>
+                <span class="kpi-subtext">Compared to utility default: $${defaultRate.toFixed(5)}</span>
             </div>
         `;
 
         container.innerHTML = `
             <!-- KPI 1: Cheapest Rate -->
-            <div class="kpi-card">
-                <span class="kpi-label">Cheapest Supplier Rate</span>
+            <div class="kpi-card ${cheapest.isDefault ? 'savings-highlight' : ''}">
+                <span class="kpi-label">Cheapest Available Rate</span>
                 <div class="kpi-value" style="color: var(--success);">${cheapestVal}</div>
-                <span class="kpi-subtext">Provided by <strong>${cheapestName}</strong></span>
+                <span class="kpi-subtext">${cheapest.isDefault ? 'Provided by' : 'Supplier:'} <strong>${cheapestName}</strong></span>
             </div>
             
             <!-- KPI 2: Utility Default Rate -->
@@ -701,29 +726,58 @@
         `;
     }
 
-    function renderSupplierTable(suppliers) {
+    function renderSupplierTable(suppliers, defaultRate, cheapest) {
         const tbody = document.getElementById('supplier-rows');
         const subtitle = document.getElementById('table-sub');
         
         subtitle.innerText = `${suppliers.length} qualifying option${suppliers.length === 1 ? '' : 's'} found`;
         
+        let html = '';
+        if (cheapest.isDefault) {
+            html += `
+                <tr>
+                    <td>
+                        <div class="supplier-name-col">
+                            <span>Utility Default Service <span class="best-pill">Best</span></span>
+                            <small>Default supply rate</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="rate-value" style="color: var(--success)">
+                            $${defaultRate.toFixed(5)} <span style="font-size:0.7rem; color:var(--text-muted);">/ kWh</span>
+                        </div>
+                        <span style="color: var(--text-muted); font-size: 0.75rem; font-weight: 600;">Current utility baseline</span>
+                    </td>
+                    <td>
+                        <span class="badge-term">Default Service</span>
+                    </td>
+                    <td>
+                        <span style="color: var(--success); font-weight: 600; font-size: 0.85rem;">$0.00</span> (Fee-Free)
+                    </td>
+                    <td>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">No switch needed</span>
+                    </td>
+                </tr>
+            `;
+        }
+
         if (suppliers.length === 0) {
-            tbody.innerHTML = `
+            html += `
                 <tr>
                     <td colspan="5" class="no-data-msg">
                         No active competitive suppliers matching the criteria (No Fee + No Intro Rate) are available for this utility.
                     </td>
                 </tr>`;
+            tbody.innerHTML = html;
             return;
         }
 
-        let html = '';
         suppliers.forEach((s, idx) => {
-            const isWinner = idx === 0;
-            const changePct = ((s.rate - UNITIL_BASE_RATE) / UNITIL_BASE_RATE) * 100;
+            const isWinner = !cheapest.isDefault && idx === 0;
+            const changePct = ((s.rate - defaultRate) / defaultRate) * 100;
             const changeSign = changePct > 0 ? '+' : '';
             const changeColor = changePct < 0 ? 'var(--success)' : (changePct === 0 ? 'var(--text)' : 'var(--danger)');
-            const changeText = `<span style="color: ${changeColor}; font-size: 0.75rem; font-weight: 600;">${changeSign}${changePct.toFixed(1)}% vs. Unitil default</span>`;
+            const changeText = `<span style="color: ${changeColor}; font-size: 0.75rem; font-weight: 600;">${changeSign}${changePct.toFixed(1)}% vs. utility default</span>`;
 
             // Term duration badge color coding
             let termBadgeClass = 'badge-term';
@@ -737,12 +791,12 @@
                 <tr>
                     <td>
                         <div class="supplier-name-col">
-                            <span>${s.name} ${isWinner ? '👑' : ''}</span>
+                            <span>${s.name} ${isWinner ? '<span class="best-pill">Best</span>' : ''}</span>
                             <small>${s.plan}</small>
                         </div>
                     </td>
                     <td>
-                        <div class="rate-value" style="color: ${s.rate < UNITIL_BASE_RATE ? 'var(--success)' : 'inherit'}">
+                        <div class="rate-value" style="color: ${s.rate < defaultRate ? 'var(--success)' : 'inherit'}">
                             $${s.rate.toFixed(5)} <span style="font-size:0.7rem; color:var(--text-muted);">/ kWh</span>
                         </div>
                         ${changeText}
@@ -762,19 +816,23 @@
         tbody.innerHTML = html;
     }
 
-    function renderDistributionChart(suppliers, defaultRate, brandColor) {
+    function renderDistributionChart(suppliers, defaultRate, brandColor, cheapest) {
         if (charts.dist) charts.dist.destroy();
 
-        if (suppliers.length === 0) {
+        if (suppliers.length === 0 && !cheapest.isDefault) {
             return;
         }
 
-        const labels = suppliers.map(s => s.name);
-        const rates = suppliers.map(s => s.rate);
+        const chartItems = cheapest.isDefault
+            ? [{ ...cheapest, name: 'Utility Default' }, ...suppliers]
+            : suppliers;
+
+        const labels = chartItems.map(s => s.name);
+        const rates = chartItems.map(s => s.rate);
         
         // Dynamic colors: Green if cheaper than baseline, Red/Orange if more expensive
-        const barColors = suppliers.map(s => s.rate < defaultRate ? 'rgba(16, 185, 129, 0.75)' : 'rgba(239, 68, 68, 0.6)');
-        const borderColors = suppliers.map(s => s.rate < defaultRate ? '#10b981' : '#ef4444');
+        const barColors = chartItems.map(s => s.isDefault ? 'rgba(16, 185, 129, 0.9)' : (s.rate < defaultRate ? 'rgba(16, 185, 129, 0.75)' : 'rgba(239, 68, 68, 0.6)'));
+        const borderColors = chartItems.map(s => s.isDefault ? '#86efac' : (s.rate < defaultRate ? '#10b981' : '#ef4444'));
 
         const ctx = document.getElementById('distChart').getContext('2d');
         charts.dist = new Chart(ctx, {
@@ -797,7 +855,7 @@
                 onClick: (e, elements) => {
                     if (elements.length > 0) {
                         const idx = elements[0].index;
-                        const url = suppliers[idx].link;
+                        const url = chartItems[idx].link;
                         if (url && url !== '#') {
                             window.open(url, '_blank');
                         }
@@ -816,8 +874,9 @@
                         padding: 10,
                         callbacks: {
                             afterLabel: function(context) {
-                                const s = suppliers[context.dataIndex];
-                                return `Plan: ${s.plan}\nDuration: ${s.term}\nExit Fee: $0.00\nClick bar to switch!`;
+                                const s = chartItems[context.dataIndex];
+                                const action = s.isDefault ? 'No supplier switch needed.' : 'Click bar to switch.';
+                                return `Plan: ${s.plan}\nDuration: ${s.term}\nExit Fee: $0.00\n${action}`;
                             }
                         }
                     }
@@ -919,7 +978,11 @@
         // Extract dates and prices for active utility
         const dates = rawHistory.map(row => row.date.split(' ')[0]);
         const defaultHistory = rawHistory.map(row => parseFloat(row[`${currentUtility}_default`]) || defaultRate);
-        const cheapestHistory = rawHistory.map(row => parseFloat(row[`${currentUtility}_cheapest`]) || null);
+        const cheapestHistory = rawHistory.map((row, idx) => {
+            const defaultValue = defaultHistory[idx];
+            const supplierValue = parseFloat(row[`${currentUtility}_cheapest`]);
+            return Number.isFinite(supplierValue) ? Math.min(defaultValue, supplierValue) : defaultValue;
+        });
 
         const ctx = document.getElementById('trendChart').getContext('2d');
         charts.trends = new Chart(ctx, {
@@ -938,7 +1001,7 @@
                         spanGaps: true
                     },
                     {
-                        label: 'Cheapest Competitor Offer',
+                        label: 'Cheapest Available Rate',
                         data: cheapestHistory,
                         borderColor: brandColor,
                         backgroundColor: brandColor + '10',

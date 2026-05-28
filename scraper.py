@@ -1,10 +1,10 @@
-import urllib.request
 import json
 import csv
 import os
 import re
 from datetime import datetime
 from bs4 import BeautifulSoup
+from curl_cffi import requests
 
 # UTILITY REGIONS & DEFAULT baseline rates (Effective Feb 2026 - July 2026)
 UTILITIES = [
@@ -38,263 +38,233 @@ UTILITIES = [
     }
 ]
 
-# Standard browser headers to try to bypass WAFs
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
-    "Accept-Language": "en-US,en;q=0.9",
-    "Cache-Control": "max-age=0"
-}
-
-# HIGH-QUALITY MOCK DATA SEED FALLBACKS (if 403 Forbidden is encountered)
-MOCK_SUPPLIERS = {
-    "Unitil": [
-        {"name": "Direct Energy", "plan": "Live Brighter 12", "rate": 0.10900, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.directenergy.com"},
-        {"name": "Constellation", "plan": "12 Month Fixed", "rate": 0.11290, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.constellation.com"},
-        {"name": "Constellation", "plan": "24 Month Fixed", "rate": 0.11490, "term": "24 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.constellation.com"},
-        {"name": "Think Energy", "plan": "Think Simple 12", "rate": 0.10750, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.thinkenergy.com"},
-        {"name": "Town Square Energy", "plan": "12 Month Fixed", "rate": 0.10390, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.townsquareenergy.com"},
-        # Excluded items (for testing our filters):
-        {"name": "Major Energy", "plan": "Teaser 3 Month", "rate": 0.09500, "term": "3 Months", "cancellation_fee": "No", "intro": "Yes", "link": "https://www.majorenergy.com"}, # Intro rate!
-        {"name": "Discount Power", "plan": "Secure 12", "rate": 0.10100, "term": "12 Months", "cancellation_fee": "$150 Early Termination Fee", "intro": "No", "link": "https://www.discountpower.com"} # Cancellation fee!
-    ],
-    "Eversource": [
-        {"name": "Direct Energy", "plan": "Live Brighter 12", "rate": 0.09700, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.directenergy.com"},
-        {"name": "Constellation", "plan": "12 Month Fixed", "rate": 0.09890, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.constellation.com"},
-        {"name": "Think Energy", "plan": "Think Simple 12", "rate": 0.09650, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.thinkenergy.com"},
-        {"name": "Town Square Energy", "plan": "12 Month Fixed", "rate": 0.09490, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.townsquareenergy.com"},
-        # Excluded items:
-        {"name": "Major Energy", "plan": "Promo 3 Month", "rate": 0.08900, "term": "3 Months", "cancellation_fee": "No", "intro": "Yes", "link": "https://www.majorenergy.com"}
-    ],
-    "Liberty": [
-        {"name": "Direct Energy", "plan": "Live Brighter 12", "rate": 0.10400, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.directenergy.com"},
-        {"name": "Constellation", "plan": "24 Month Fixed", "rate": 0.10890, "term": "24 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.constellation.com"},
-        {"name": "Think Energy", "plan": "Think Simple 12", "rate": 0.10290, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.thinkenergy.com"},
-        {"name": "Town Square Energy", "plan": "12 Month Fixed", "rate": 0.10190, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.townsquareenergy.com"}
-    ],
-    "NHEC": [
-        {"name": "Direct Energy", "plan": "Live Brighter 12", "rate": 0.10100, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.directenergy.com"},
-        {"name": "Constellation", "plan": "12 Month Fixed", "rate": 0.10390, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.constellation.com"},
-        {"name": "Think Energy", "plan": "Think Simple 12", "rate": 0.09990, "term": "12 Months", "cancellation_fee": "No", "intro": "No", "link": "https://www.thinkenergy.com"}
-    ]
-}
+def fetch_html_with_system_client(url):
+    """Fetches HTML by impersonating a real browser's TLS signature (JA4/JA3)."""
+    try:
+        response = requests.get(
+            url, 
+            impersonate="chrome", 
+            timeout=15,
+            verify=False,
+            headers={
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.9",
+            },
+        )
+        if response.status_code != 200:
+            return f"Status Code: {response.status_code}\n{response.text}"
+        return response.text
+    except Exception as err:
+        raise RuntimeError(f"Failed to execute underlying network execution frame: {err}")
 
 def parse_rate(rate_str):
-    """Clean and parse rate value from string to float (e.g. '$0.12061' -> 0.12061 or '12.06¢' -> 0.1206)"""
-    cleaned = rate_str.lower().replace("/kwh", "").replace("/ kwh", "").replace("per kwh", "").replace("$", "").strip()
+    """Clean and parse rate value from string to float."""
+    # Strip keywords, symbols, and explicit structural colons
+    cleaned = rate_str.lower().replace("per kwh", "").replace("/kwh", "").replace("/ kwh", "").replace("$", "").replace(":", "").strip()
+    
     if "¢" in cleaned or "cents" in cleaned or "cent" in cleaned:
         val = cleaned.replace("¢", "").replace("cents", "").replace("cent", "").strip()
         return float(val) / 100.0
-    return float(cleaned)
+    
+    # Isolate the exact float string to avoid any trailing labels causing parsing exceptions
+    match = re.search(r'\d+\.\d+', cleaned)
+    if match:
+        val = float(match.group(0))
+    else:
+        val = float(cleaned)
+        
+    # Global safety scale: If the rate parsed out as a whole number cents format (e.g. 13.02)
+    if val > 1.0:
+        val = val / 100.0
+    return val
 
-def extract_term_months(rate_end_str, comments_str):
-    """
-    Look for keywords like '12 month', '24 mo' in comments or rate end strings, 
-    or return rate_end_str if not found.
-    """
-    search_str = f"{rate_end_str} {comments_str}".lower()
+def normalize_space(value):
+    """Collapse HTML whitespace into a single-space string."""
+    return re.sub(r'\s+', ' ', value or '').strip()
+
+def field_text(table, class_name, label=None):
+    """Extract a value from one supplier card cell, removing the visible label."""
+    el = table.find(class_=class_name)
+    if not el:
+        return ""
+
+    text = normalize_space(el.get_text(" ", strip=True))
+    if label:
+        text = re.sub(rf"^{re.escape(label)}\s*:?\s*", "", text, flags=re.I)
+    return normalize_space(text)
+
+def rate_text(table):
+    """Extract only the per-kWh price span, avoiding unrelated table numbers."""
+    rate_span = table.find(id=re.compile(r'lblKWh'))
+    if rate_span:
+        return normalize_space(rate_span.get_text(" ", strip=True))
+
+    text = normalize_space(table.get_text(" ", strip=True))
+    match = re.search(r"per\s*kwh\s*:?\s*(\$?\d+(?:\.\d+)?)", text, flags=re.I)
+    return match.group(1) if match else ""
+
+def signup_link(table, fallback_url):
+    """Return the supplier sign-up URL when the card exposes one."""
+    for link in table.find_all("a", href=True):
+        if "sign up" in normalize_space(link.get_text(" ", strip=True)).lower():
+            return link["href"]
+    return fallback_url
+
+def extract_term_months(rate_end_str, comments_str, full_context_str=""):
+    """Identify commitment months out of detail text strings."""
+    search_str = f"{rate_end_str} {comments_str} {full_context_str}".lower()
     match = re.search(r"(\d+)\s*(?:month|mo|billing cycle)", search_str)
     if match:
         return f"{match.group(1)} Months"
     
-    # Check for direct dates
     date_match = re.search(r"(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s*\d{4}", search_str)
     if date_match:
         return f"Fixed until {date_match.group(0).capitalize()}"
         
-    return rate_end_str.strip() or "Variable / Dynamic"
+    return rate_end_str.strip() or "Variable"
 
-def check_intro_rate(plan_name, comments):
-    """Check comments/plan name for teaser rate or introductory promotions"""
+def check_intro_rate(plan_name, intro_price, comments):
+    """Filter out introductory promos or teaser structures."""
+    intro_clean = intro_price.strip().lower()
+    if intro_clean and intro_clean not in ["no", "none", "$0", "$0.00", "n/a", "0", "false"]:
+        return True
+
     search_str = f"{plan_name} {comments}".lower()
-    intro_keywords = [
-        "intro", "teaser", "promotional", "promo", "new customer", 
-        "first 2 cycle", "first 3 cycle", "first 3 month", "first 2 month",
-        "introductory"
+    intro_patterns = [
+        r"\bintro(?:ductory)?\b",
+        r"\bteaser\b",
+        r"\bpromo(?:tional)?\b",
+        r"\bnew\b.{0,40}\bcustomers?\b",
+        r"\bonly available\b.{0,80}\bcustomers?\b",
+        r"\bgift card\b",
+        r"\b\d+\s*%\s*off\b",
     ]
-    return any(k in search_str for k in intro_keywords)
+    return any(re.search(pattern, search_str) for pattern in intro_patterns)
 
 def check_cancellation_fee(fee_str):
-    """Determine if there is a cancellation fee"""
-    fee_clean = fee_str.lower().strip()
+    """Identify presence of a restrictive structural cancellation fee."""
+    fee_clean = fee_str.lower().replace("cancellation fee:", "").strip()
     if not fee_clean or fee_clean in ["no", "none", "$0", "$0.00", "no cancellation fee", "n/a", "0", "false"]:
         return False
     return True
 
 def scrape_utility(util):
-    """Scrapes a specific utility URL, filters prices, and returns data list."""
-    print(f"Scraping {util['name']} from {util['url']}...")
-    try:
-        req = urllib.request.Request(util['url'], headers=HEADERS)
-        with urllib.request.urlopen(req, timeout=15) as res:
-            html = res.read().decode('utf-8')
-            
-        soup = BeautifulSoup(html, 'html.parser')
+    """Scrapes data elements mapping atomic multi-row table contexts."""
+    print(f"Scraping live data for {util['name']}...")
+    html = fetch_html_with_system_client(util['url'])
+    
+    if not html or "403 Forbidden" in html or "access denied" in html.lower():
+        with open(f"debug_{util['id']}.html", "w", encoding="utf-8") as df:
+            df.write(html)
+        raise PermissionError(f"Akamai edge network block encountered. Saved dump to debug_{util['id']}.html")
         
-        # Semantically locate the suppliers grid table
-        target_table = None
-        for table in soup.find_all('table'):
-            cells_text = table.text.lower()
-            if "supplier" in cells_text and ("rate" in cells_text or "per kwh" in cells_text or "cancellation" in cells_text):
-                target_table = table
-                break
-                
-        if not target_table:
-            raise Exception("Could not semantically find the comparison table on the page.")
+    soup = BeautifulSoup(html, 'html.parser')
+    suppliers = []
+
+    # Find the specific supplier multi-row table components
+    tables = soup.find_all('table', class_='tblCompareList')
+    
+    # Fallback to general tables containing supplier blocks if specific classes match
+    if not tables:
+        tables = [t for t in soup.find_all('table') if t.find(class_='CompanyName')]
+
+    if not tables:
+        with open(f"debug_{util['id']}.html", "w", encoding="utf-8") as df:
+            df.write(html)
+        raise ValueError(f"No supplier tables found in layout. Diagnostic saved to debug_{util['id']}.html")
+
+    for table in tables:
+        try:
+            # Extract Identity Elements
+            company_el = table.find(class_='CompanyName')
+            if not company_el:
+                continue
+            name = normalize_space(company_el.get_text(" ", strip=True).replace("Company Name:", ""))
             
-        # Parse table headers to map indices dynamically
-        rows = target_table.find_all('tr')
-        if not rows:
-            raise Exception("Table contains no rows.")
+            plan_el = table.find(class_='PlanName')
+            plan = normalize_space(plan_el.get_text(" ", strip=True)) if plan_el else "Standard Fixed"
             
-        header_row = rows[0]
-        headers = [th.text.strip().lower() for th in header_row.find_all(['th', 'td'])]
-        
-        col_map = {}
-        for idx, h in enumerate(headers):
-            if "supplier" in h: col_map["supplier"] = idx
-            elif "plan" in h or "type" in h: col_map["plan"] = idx
-            elif "rate" in h or "kwh" in h or "price" in h: col_map["rate"] = idx
-            elif "cancellation" in h or "termination" in h or "fee" in h: col_map["cancellation"] = idx
-            elif "end" in h or "expire" in h or "expiration" in h: col_map["rate_end"] = idx
-            elif "renewable" in h: col_map["renewable"] = idx
-            elif "comment" in h or "detail" in h: col_map["comments"] = idx
-            elif "link" in h or "sign" in h or "action" in h: col_map["link"] = idx
-            
-        # Fallback maps if headers are non-standard or missing
-        required_keys = ["supplier", "plan", "rate", "cancellation", "rate_end", "comments"]
-        for key in required_keys:
-            if key not in col_map:
-                if key == "supplier": col_map[key] = 0
-                elif key == "plan": col_map[key] = 1
-                elif key == "rate": col_map[key] = 2
-                elif key == "cancellation": col_map[key] = 3
-                elif key == "rate_end": col_map[key] = 4
-                elif key == "comments": col_map[key] = 6
-                elif key == "link": col_map[key] = len(headers) - 1 if len(headers) > 7 else 7
-                
-        suppliers = []
-        # Parse content rows
-        for row in rows[1:]:
-            cells = row.find_all(['td', 'th'])
-            if len(cells) < 4: 
+            price_text = rate_text(table)
+            if not price_text:
                 continue
                 
-            try:
-                # 1. Supplier Name
-                sup_cell = cells[col_map["supplier"]]
-                img = sup_cell.find('img')
-                name = img.get('alt', img.get('title', '')).strip() if img else sup_cell.text.strip()
-                if not name: 
-                    name = sup_cell.text.strip()
-                
-                # 2. Plan Name
-                plan = cells[col_map["plan"]].text.strip()
-                
-                # 3. Rate Per KWh
-                rate_raw = cells[col_map["rate"]].text.strip()
-                rate = parse_rate(rate_raw)
-                
-                # 4. Cancellation Fee
-                fee_raw = cells[col_map["cancellation"]].text.strip()
-                has_fee = check_cancellation_fee(fee_raw)
-                
-                # 5. Rate End / Comments (to parse term and identify intro rates)
-                rate_end = cells[col_map["rate_end"]].text.strip()
-                comments = cells[col_map["comments"]].text.strip() if "comments" in col_map and col_map["comments"] < len(cells) else ""
-                
-                # 6. Intro price checking
-                is_intro = check_intro_rate(plan, comments)
-                
-                # 7. Action Link
-                link_cell = cells[col_map["link"]] if col_map["link"] < len(cells) else None
-                a_tag = link_cell.find('a') if link_cell else None
-                link = a_tag.get('href', '#').strip() if a_tag else '#'
-                if link.startswith('/'):
-                    link = f"https://www.energy.nh.gov{link}"
-                elif not link.startswith('http') and link != '#':
-                    link = f"https://www.energy.nh.gov/engyapps/ceps/{link}"
-                
-                # Filter for active suppliers that have:
-                # - NO early cancellation fee
-                # - NO introductory price
-                if not has_fee and not is_intro:
-                    term = extract_term_months(rate_end, comments)
-                    suppliers.append({
-                        "name": name,
-                        "plan": plan,
-                        "rate": rate,
-                        "term": term,
-                        "cancellation_fee": "No",
-                        "intro": "No",
-                        "link": link
-                    })
-            except Exception as e:
-                # Skip broken rows
-                # print(f"Skipped row due to error: {e}")
+            rate_found = parse_rate(price_text)
+            if rate_found <= 0:
                 continue
-                
-        if not suppliers:
-            raise Exception("No valid suppliers extracted after filtering.")
             
-        print(f"Successfully scraped {len(suppliers)} clean suppliers for {util['name']}.")
-        return suppliers
-        
-    except Exception as e:
-        print(f"Warning: Failed to scrape {util['name']} online: {e}")
-        print("Using cached/mock fallback data seed...")
-        # Fallback to high-quality curated mock suppliers, excluding any fee or intro rates
-        fallback_data = []
-        for item in MOCK_SUPPLIERS[util['id']]:
-            if not check_cancellation_fee(item["cancellation_fee"]) and item["intro"] == "No":
-                fallback_data.append(item)
-        return sorted(fallback_data, key=lambda x: x["rate"])
+            # Extract Fee Attributes
+            fee_str = field_text(table, "CancellationFee", "Cancellation Fee") or "No"
+            has_fee = check_cancellation_fee(fee_str)
+            intro_price = field_text(table, "IntroPrice", "Intro Price") or "No"
+            comments = field_text(table, "Comments", "Comments")
+            term_text = field_text(table, "RateGoodFor", "Rate Good for")
+            
+            # Match existing strict validation rules (No Cancellation Fees & No Teaser Intro Rates)
+            if not has_fee and not check_intro_rate(plan, intro_price, comments):
+                term = extract_term_months(term_text, comments)
+                suppliers.append({
+                    "name": name, 
+                    "plan": plan, 
+                    "rate": rate_found, 
+                    "term": term, 
+                    "cancellation_fee": "No", 
+                    "intro": "No", 
+                    "link": signup_link(table, util["url"])
+                })
+        except Exception:
+            continue
+
+    with open(f"layout_{util['id']}.html", "w", encoding="utf-8") as lf:
+        lf.write(html)
+
+    if suppliers:
+        print(f"Successfully scraped {len(suppliers)} live elements for {util['name']}.")
+    else:
+        print(f"Parsed {len(tables)} live elements for {util['name']}; none matched the no-fee/non-promo filter.")
+    return suppliers
 
 def scrape_all():
     current_time = datetime.now().strftime('%Y-%m-%d %H:%M')
     all_results = []
+    row_stats = {"date": current_time}
     
-    # Track statistics to write to CSV
-    row_stats = {
-        "date": current_time,
-    }
+    # Housekeeping: Evict stale debug code outputs from previous broken runs
+    for util in UTILITIES:
+        for prefix in ["debug_", "layout_"]:
+            old_file = f"{prefix}{util['id']}.html"
+            if os.path.exists(old_file):
+                os.remove(old_file)
     
     for util in UTILITIES:
-        suppliers = scrape_utility(util)
-        
-        # Sort by rate (cheapest first)
-        suppliers = sorted(suppliers, key=lambda x: x["rate"])
-        
-        # Append utility details to each record
-        for s in suppliers:
-            s["utility_id"] = util["id"]
-            s["utility_name"] = util["name"]
-            all_results.append(s)
+        try:
+            suppliers = scrape_utility(util)
+            suppliers = sorted(suppliers, key=lambda x: x["rate"])
             
-        # Add utility stats for history CSV
-        cheapest_rate = suppliers[0]["rate"] if suppliers else ""
-        cheapest_name = suppliers[0]["name"] if suppliers else ""
-        
-        row_stats[f"{util['id']}_default"] = util["default_rate"]
-        row_stats[f"{util['id']}_cheapest"] = cheapest_rate
-        row_stats[f"{util['id']}_winner"] = cheapest_name
-        
-    # Add summary statistics
+            for s in suppliers:
+                s["utility_id"] = util["id"]
+                s["utility_name"] = util["name"]
+                all_results.append(s)
+
+            supplier_best = suppliers[0] if suppliers else None
+            default_is_best = not supplier_best or util["default_rate"] <= supplier_best["rate"]
+
+            row_stats[f"{util['id']}_default"] = util["default_rate"]
+            row_stats[f"{util['id']}_cheapest"] = util["default_rate"] if default_is_best else supplier_best["rate"]
+            row_stats[f"{util['id']}_winner"] = "Utility Default Service" if default_is_best else supplier_best["name"]
+        except Exception as err:
+            print(f"CRITICAL ERROR: Failed to scrape {util['name']}: {err}")
+            return
+
     valid_rates = [s["rate"] for s in all_results]
     row_stats["global_avg"] = round(sum(valid_rates) / len(valid_rates), 5) if valid_rates else ""
     row_stats["full_data"] = json.dumps(all_results)
     
-    # Save the full clean vendor data
     with open('suppliers.json', 'w') as f:
         json.dump(all_results, f, indent=2)
         
-    # Append stats to CSV file
     file_exists = os.path.isfile('data.csv')
-    
-    # Define exact CSV columns order
     fieldnames = [
-        "date", 
-        "global_avg",
+        "date", "global_avg",
         "Unitil_default", "Unitil_cheapest", "Unitil_winner",
         "Eversource_default", "Eversource_cheapest", "Eversource_winner",
         "Liberty_default", "Liberty_cheapest", "Liberty_winner",
@@ -308,11 +278,10 @@ def scrape_all():
             writer.writeheader()
         writer.writerow(row_stats)
         
-    print(f"Data scrape complete at {current_time}. Written suppliers.json and updated data.csv!")
+    print(f"Data pipeline complete at {current_time}. Records synchronized successfully.")
 
 if __name__ == "__main__":
-    # Create output directories if needed
-    os.makedirs(os.path.dirname(os.path.abspath(__file__)), exist_ok=True)
-    # Ensure current working dir is the script directory
-    os.chdir(os.path.dirname(os.path.abspath(__file__)))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(script_dir, exist_ok=True)
+    os.chdir(script_dir)
     scrape_all()
