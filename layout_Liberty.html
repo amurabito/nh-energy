@@ -1,0 +1,873 @@
+
+
+<!DOCTYPE html>
+<html lang="en"> <!-- Added lang attribute for screen readers -->
+
+<head id="CEPSHead"><title>
+	Compare Residential Suppliers
+</title> <!-- Updated title for better context -->
+    <link id="Link1" href="App_Themes/Content/Bootstrap.css" rel="stylesheet" type="text/css" /><link id="CSSLink" href="App_Themes/CEPSstyles.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="App_Themes/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="App_Themes/Scripts/bootstrap.min.js"></script>
+    
+    </head>
+
+<body id="pageBody">
+
+    <form method="post" action="./ResidentialCompare.aspx?choice=Liberty" id="CEPSForm">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE0OTA5Njg3NDEPZBYCZg9kFgICAw9kFgICAQ9kFggCAw8PFgQeB0VuYWJsZWRoHgdWaXNpYmxlaGRkAgUPDxYEHwBoHwFoZGQCBw8PFgYeBFRleHQFMENvbXBldGl0aXZlIEVuZXJneSBQb3dlciBTdXBwbGllcnMgLSBSZXNpZGVudGlhbB4IQ3NzQ2xhc3MFC0luZm9ybWF0aW9uHgRfIVNCAgJkZAILD2QWAgIBD2QWBgIBDxYCHwFoFgJmD2QWAgIDDxYCHwIFqRY8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9QScgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5BPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1CJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPkI8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPUMnIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+QzwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9RCcgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5EPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1FJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPkU8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPUYnIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+RjwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9Rycgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5HPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1IJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPkg8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPUknIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+STwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9Sicgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5KPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1LJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPks8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPUwnIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+TDwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9TScgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5NPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1OJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPk48L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPU8nIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+TzwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9UCcgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5QPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1RJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPlE8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPVInIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+UjwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9Uycgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5TPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1UJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPlQ8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPVUnIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+VTwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9Vicgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5WPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1XJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPlc8L2E+IHwgPGEgaHJlZj0nUmVzaWRlbnRpYWxDb21wYXJlLmFzcHg/Y2hvaWNlPUxpYmVydHkmZmlsdGVyPVgnIHN0eWxlPSdmb250LXNpemU6IDIwcHg7IGZvbnQtd2VpZ2h0OiBib2xkOyc+WDwvYT4gfCA8YSBocmVmPSdSZXNpZGVudGlhbENvbXBhcmUuYXNweD9jaG9pY2U9TGliZXJ0eSZmaWx0ZXI9WScgc3R5bGU9J2ZvbnQtc2l6ZTogMjBweDsgZm9udC13ZWlnaHQ6IGJvbGQ7Jz5ZPC9hPiB8IDxhIGhyZWY9J1Jlc2lkZW50aWFsQ29tcGFyZS5hc3B4P2Nob2ljZT1MaWJlcnR5JmZpbHRlcj1aJyBzdHlsZT0nZm9udC1zaXplOiAyMHB4OyBmb250LXdlaWdodDogYm9sZDsnPlo8L2E+ZAIDD2QWAmYPZBYKZg9kFgICAQ8PFgoeCEltYWdlVXJsBUF+L0xvZ29IYW5kbGVyLmFzaHg/VXRpbGl0eUlkPThlNDc4MGMxLWMzOTItNDVkNS1hNGM4LTM0NDM5Mzc2YWU1Yh4JQmFja0NvbG9yCqQBHgZIZWlnaHQbAAAAAADAUkABAAAAHgVXaWR0aBsAAAAAAMBiQAEAAAAfBAKIA2RkAgEPZBYEAgEPFgIeCWlubmVyaHRtbAUHTGliZXJ0eWQCAw8WAh8JBQ4xLTgwMC0zNzUtNzQxM2QCAg9kFgICAQ8WAh8JBQJGUmQCAw9kFgICAQ8WBB4Fc3R5bGUFDGNvbG9yOldoaXRlOx8JBR9GZWJydWFyeSAyMDI2IHRocm91Z2ggSnVseSAyMDI2ZAIED2QWAgIBDxYCHwkFCCQwLjEzNzM1ZAIJDxYCHgtfIUl0ZW1Db3VudAIJFhJmD2QWDAIBDw8WAh8FBUhTdXBwbGllckxvZ29IYW5kbGVyLmFzaHg/U3VwcGxpZXJJZD1mYjc3ZDM0ZS0wMjgxLTRlYWItOTQxYy01ZTg0NDhjYTljZmNkZAIDD2QWAmYPFQEjV2hpdGUgTW91bnRhaW4gU2VsZWN0IDEyIE1vbnRoIFRlcm1kAgUPZBYCZg8VAQcwLjEzMTAwZAIHD2QWAmYPFQEINS8xLzIwMjZkAggPFQYMQW1iaXQgRW5lcmd5BUZpeGVkAk5vDjEtODc3LTI4Mi02MjQ4Ak5vCTEyIG1vbnRoc2QCDA8VBQJObxEqTGFzdCBtZXRlciByZWFkKhR3dzIuYW1iaXRlbmVyZ3kuY29tLwYwLjAwICUlT25seSBhdmFpbGFibGUgdG8gbmV3IEFtYml0IGN1c3RvbWVyc2QCAQ9kFgwCAQ8PFgIfBQVIU3VwcGxpZXJMb2dvSGFuZGxlci5hc2h4P1N1cHBsaWVySWQ9ZmI3N2QzNGUtMDI4MS00ZWFiLTk0MWMtNWU4NDQ4Y2E5Y2ZjZGQCAw9kFgJmDxUBEVVsdGltYXRlIFBlcmtzIDEyZAIFD2QWAmYPFQEHMC4xMzYwMGQCBw9kFgJmDxUBCDUvMS8yMDI2ZAIIDxUGDEFtYml0IEVuZXJneQVGaXhlZAJObw4xLTg3Ny0yODItNjI0OAJObwkxMiBtb250aHNkAgwPFQUCTm8RKkxhc3QgbWV0ZXIgcmVhZCoUd3cyLmFtYml0ZW5lcmd5LmNvbS8GMC4wMCAlJU9ubHkgYXZhaWxhYmxlIHRvIG5ldyBBbWJpdCBjdXN0b21lcnNkAgIPZBYMAgEPDxYCHwUFSFN1cHBsaWVyTG9nb0hhbmRsZXIuYXNoeD9TdXBwbGllcklkPWZiNzdkMzRlLTAyODEtNGVhYi05NDFjLTVlODQ0OGNhOWNmY2RkAgMPZBYCZg8VAQ9XaW50ZXIgQnJlYWsgMjRkAgUPZBYCZg8VAQcwLjE3ODAwZAIHD2QWAmYPFQEINS8xLzIwMjZkAggPFQYMQW1iaXQgRW5lcmd5BUZpeGVkAk5vDjEtODc3LTI4Mi02MjQ4Ak5vCTI0IG1vbnRoc2QCDA8VBQJObxEqTGFzdCBtZXRlciByZWFkKhR3dzIuYW1iaXRlbmVyZ3kuY29tLwYwLjAwICW2AUFzIHRlbXBlcmF0dXJlcyBkcm9wLCB5b3VyIHNhdmluZ3Mgd2lsbCByaXNlLiBHZXQgNTAlIG9mZiB5b3VyIGVuZXJneSBjaGFyZ2VzIG9uIGJpbGwgY3ljbGVzIGJlZ2lubmluZyBOb3ZlbWJlciAxc3QgdGhyb3VnaCB0aGUgZW5kIG9mIEZlYnJ1YXJ5LiBPbmx5IGF2YWlsYWJsZSB0byBuZXcgQW1iaXQgY3VzdG9tZXJzZAIDD2QWDAIBDw8WAh8FBUhTdXBwbGllckxvZ29IYW5kbGVyLmFzaHg/U3VwcGxpZXJJZD1mYjc3ZDM0ZS0wMjgxLTRlYWItOTQxYy01ZTg0NDhjYTljZmNkZAIDD2QWAmYPFQEPV2ludGVyIEJyZWFrIDEyZAIFD2QWAmYPFQEHMC4xNzMwMGQCBw9kFgJmDxUBCDUvMS8yMDI2ZAIIDxUGDEFtYml0IEVuZXJneQVGaXhlZAJObw4xLTg3Ny0yODItNjI0OAJObwkxMiBtb250aHNkAgwPFQUCTm8RKkxhc3QgbWV0ZXIgcmVhZCoUd3cyLmFtYml0ZW5lcmd5LmNvbS8GMC4wMCAltgFBcyB0ZW1wZXJhdHVyZXMgZHJvcCwgeW91ciBzYXZpbmdzIHdpbGwgcmlzZS4gR2V0IDUwJSBvZmYgeW91ciBlbmVyZ3kgY2hhcmdlcyBvbiBiaWxsIGN5Y2xlcyBiZWdpbm5pbmcgTm92ZW1iZXIgMXN0IHRocm91Z2ggdGhlIGVuZCBvZiBGZWJydWFyeS4gT25seSBhdmFpbGFibGUgdG8gbmV3IEFtYml0IGN1c3RvbWVyc2QCBA9kFgwCAQ8PFgIfBQVIU3VwcGxpZXJMb2dvSGFuZGxlci5hc2h4P1N1cHBsaWVySWQ9NjlmNjNmYzEtN2QxYi00OWE1LTgwZWYtZTBkYjk2MGQ2ZGE5ZGQCAw9kFgJmDxUBD1NpbXBseSBDbGVhbiAxMmQCBQ9kFgJmDxUBBzAuMTM3MDBkAgcPZBYCZg8VAQg1LzEvMjAyNmQCCA8VBhJDbGVhbkNob2ljZSBFbmVyZ3kFRml4ZWQCTm8OMS04MDAtNDYwLTQ5MDACTm8JMTIgbW9udGhzZAIMDxUFAk5vESpMYXN0IG1ldGVyIHJlYWQqHm15Y2xlYW5jaG9pY2UuY29tL25oc2hvcHBlcmExMggxMDAuMDAgJb4BVGhpcyB3ZWItZXhjbHVzaXZlIHByaWNpbmcgaXMgYXZhaWxhYmxlIGZvciBuZXcgY3VzdG9tZXJzIG9ubHkgZm9yIGEgbGltaXRlZCB0aW1lIGF0IGh0dHBzOi8vbXljbGVhbmNob2ljZS5jb20vbmhzaG9wcGVyYTEyLiBHZXQgMTAwJSByZW5ld2FibGUgZW5lcmd5IHdpdGggQ2xlYW5DaG9pY2UgRW5lcmd5LiBTaWduIHVwIHRvZGF5IWQCBQ9kFgwCAQ8PFgIfBQVIU3VwcGxpZXJMb2dvSGFuZGxlci5hc2h4P1N1cHBsaWVySWQ9MDAyYzk1YTktMDQ2MC00YWMzLThhMTMtN2UwNTY2ZDU3MjM2ZGQCAw9kFgJmDxUBG0Vhc3kgQ2hvaWNlIDMgLSBSZXNpZGVudGlhbGQCBQ9kFgJmDxUBBzAuMTEyOTBkAgcPZBYCZg8VAQk1LzI3LzIwMjZkAggPFQYJRU5IIFBvd2VyBUZpeGVkAk5vDjEtODMzLTQ4OC0zMTQ3Ak5vCDMgbW9udGhzZAIMDxUFAk5vESpMYXN0IG1ldGVyIHJlYWQqGXd3dy5wcm92aWRlcnBvd2VyLmNvbS9uaC8GMC4wMCAlvQFFbmpveSAzIG1vbnRocyBvZiBhIGZpeGVkIHJhdGUgd2l0aCBubyBNU0YgYW5kIG5vIEVURi4gT25seSBuZXcgY3VzdG9tZXJzIGFyZSBlbGlnaWJsZSB0byBzaWduIHVwIGZvciB0aGlzIHBsYW4gb25saW5lLiBGb3IgZXhpc3RpbmcgY3VzdG9tZXJzIHdpdGggRU5ILCBwbGVhc2UgY2FsbCAoODQ0KSA4MjEtODAzMCB0byByZW5ldy5kAgYPZBYMAgEPDxYCHwUFSFN1cHBsaWVyTG9nb0hhbmRsZXIuYXNoeD9TdXBwbGllcklkPTAwMmM5NWE5LTA0NjAtNGFjMy04YTEzLTdlMDU2NmQ1NzIzNmRkAgMPZBYCZg8VAR1TaW1wbGUgUG93ZXIgMTIgLSBSZXNpZGVudGlhbGQCBQ9kFgJmDxUBBzAuMTQyNTBkAgcPZBYCZg8VAQk1LzI3LzIwMjZkAggPFQYJRU5IIFBvd2VyBUZpeGVkAk5vDjEtODMzLTQ4OC0zMTQ3Ak5vCTEyIG1vbnRoc2QCDA8VBQckMTAwLjAwESpMYXN0IG1ldGVyIHJlYWQqGXd3dy5wcm92aWRlcnBvd2VyLmNvbS9uaC8GMC4wMCAlyAFFbmpveSAxMiBtb250aHMgb2YgYSBmaXhlZCByYXRlIHdpdGggbm8gTVNGIGFuZCBhIDEwMCBkb2xsYXIgRVRGLiBPbmx5IG5ldyBjdXN0b21lcnMgYXJlIGVsaWdpYmxlIHRvIHNpZ24gdXAgZm9yIHRoaXMgcGxhbiBvbmxpbmUuIEZvciBleGlzdGluZyBjdXN0b21lcnMgd2l0aCBFTkgsIHBsZWFzZSBjYWxsICg4NDQpIDgyMS04MDMwIHRvIHJlbmV3LmQCBw9kFgwCAQ8PFgIfBQVIU3VwcGxpZXJMb2dvSGFuZGxlci5hc2h4P1N1cHBsaWVySWQ9NTkyYWJjOTQtZjY1Ni00ZjFmLThiYTktYjhlNmY2NjIyYzUwZGQCAw9kFgJmDxUBFzE2IE1vbnRoIFN0YW5kYXJkIEZpeGVkZAIFD2QWAmYPFQEHMC4xMzI5MGQCBw9kFgJmDxUBCDUvNi8yMDI2ZAIIDxUGH05vcnRoIEFtZXJpY2FuIFBvd2VyICYgR2FzLCBMTEMFRml4ZWQCTm8MODc3LTU3Mi05OTY1Ak5vCTE2IG1vbnRoc2QCDA8VBQYkMTAuMDARKkxhc3QgbWV0ZXIgcmVhZCoPd3d3Lm5hcG93ZXIuY29tBjAuMDAgJU9FYXJseSB0ZXJtaW5hdGlvbiBmZWU6IDEwLjAwIGRvbGxhcnMgZm9yIGVhY2ggbW9udGggcmVtYWluaW5nIGluIHlvdXIgY29udHJhY3QuZAIID2QWDAIBDw8WAh8FBUhTdXBwbGllckxvZ29IYW5kbGVyLmFzaHg/U3VwcGxpZXJJZD01OTJhYmM5NC1mNjU2LTRmMWYtOGJhOS1iOGU2ZjY2MjJjNTBkZAIDD2QWAmYPFQEXMTQgTW9udGggU3RhbmRhcmQgRml4ZWRkAgUPZBYCZg8VAQcwLjEzNTkwZAIHD2QWAmYPFQEINS82LzIwMjZkAggPFQYfTm9ydGggQW1lcmljYW4gUG93ZXIgJiBHYXMsIExMQwVGaXhlZAJObww4NzctNTcyLTk5NjUCTm8JMTQgbW9udGhzZAIMDxUFBiQxMC4wMBEqTGFzdCBtZXRlciByZWFkKg93d3cubmFwb3dlci5jb20GMC4wMCAlT0Vhcmx5IHRlcm1pbmF0aW9uIGZlZTogMTAuMDAgZG9sbGFycyBmb3IgZWFjaCBtb250aCByZW1haW5pbmcgaW4geW91ciBjb250cmFjdC5kGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYJBTVjdGwwMCRNYWluQ29udGVudCRDb21wYXJlU3VwcGxpZXJJRCRjdGwwMCRja0J4Q29tcGFyZQU1Y3RsMDAkTWFpbkNvbnRlbnQkQ29tcGFyZVN1cHBsaWVySUQkY3RsMDEkY2tCeENvbXBhcmUFNWN0bDAwJE1haW5Db250ZW50JENvbXBhcmVTdXBwbGllcklEJGN0bDAyJGNrQnhDb21wYXJlBTVjdGwwMCRNYWluQ29udGVudCRDb21wYXJlU3VwcGxpZXJJRCRjdGwwMyRja0J4Q29tcGFyZQU1Y3RsMDAkTWFpbkNvbnRlbnQkQ29tcGFyZVN1cHBsaWVySUQkY3RsMDQkY2tCeENvbXBhcmUFNWN0bDAwJE1haW5Db250ZW50JENvbXBhcmVTdXBwbGllcklEJGN0bDA1JGNrQnhDb21wYXJlBTVjdGwwMCRNYWluQ29udGVudCRDb21wYXJlU3VwcGxpZXJJRCRjdGwwNiRja0J4Q29tcGFyZQU1Y3RsMDAkTWFpbkNvbnRlbnQkQ29tcGFyZVN1cHBsaWVySUQkY3RsMDckY2tCeENvbXBhcmUFNWN0bDAwJE1haW5Db250ZW50JENvbXBhcmVTdXBwbGllcklEJGN0bDA4JGNrQnhDb21wYXJlm3WPQjBatoOH1OSz0xmYWvRHcNyTOXzGRLuXqCQ8/TI=" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="10CED5C4" />
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdABVLZO5vXIbM75IDQe0YgSgEG8f/+tEey+VBklBV44OEOXRwUb078/HQ2q1PFAVh2ENqbTiGtV9kf0qZn23AmKOW9fFpu8kz7P1+/vnNdhTwNyv2N5XdiFfAkyPIAdJEscV7rgqpS6+D+RcRCgU1tSCOJbf//rga24sv9aPMYfuq65BTN+f5nfrq9BRirfLQY98es3uZVQ8sdwyItbBl5zXxYu2w2HtWvHUhsDtIxVIIQaUpaS5OuBuKsf7dKWepiVkyAGubPPys69QZSK7gXJbYSSKIIqsm180r4ms1+0akeQPEZYxp6D75/snQu2ROGgp1zaCyaT5CzMplvcRVGsKjL1R91nVwTgAL2ujfHwjqAz44PwwU5Oh/yXoVugZkE9+V3bkR8aJFTRcIUiGb8KeP0KW1iinCq+ADdtY9mafdtTzREeHm4qIemQIWm/CJEVbGni2HEBqhObtq49qOO9Upyg4eNF20dYNMCSzLB7sTIA==" />
+</div>
+        <table class="EnergyChoice" style="width:100%;border-collapse: collapse; height:10%;">
+            <tr style="height:20px;">
+                <td style="text-align:left;width:20%;height:20px;padding-left:.5px;">
+
+                    <!-- Added descriptive alt text for the image -->
+                    <img id="StateSeal" src="App_Themes/fonts/sealnogarl.gif" alt="New Hampshire State Seal" style="height:36px;width:36px;" />
+                    
+                    <a href="shop.aspx" class="btn btn-primary dropdown-toggle EnergyChoiceTitle"><strong>New Search</strong></a>
+                </td>
+                <td style="text-align: center;width:15%;height:20px;"></td>
+                <td style="text-align: center;width:30%;" colspan="2">
+                    <table style="text-align: center;width:100%;">
+                        <tr>
+                            <td style="text-align: center;width:15%;height:20px;">
+                                
+                            </td>
+                            <td style="text-align: center;width:15%;height:20px;">
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="text-align: center;width:20%;height:20px;">
+                                <!-- Added aria-live for dynamic updates -->
+                                <span id="lblNoSelectionMessage" class="Information" aria-live="polite" style="padding-bottom:.1px;padding-top:.1px;">Competitive Energy Power Suppliers - Residential</span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td style="text-align:right;width:20%;height:20px;">
+                    <label id="lblOfficial" class="official">an official New Hampshire government website</label>
+                    
+                </td>
+                <td style="text-align:center;width:20%;">
+                    <a href="http://www.energy.nh.gov/ENGYApps/cepsportal/login.aspx" target="_blank" class="btn btn-primary dropdown-toggle EnergyChoiceTitle"><strong>Portal Login</strong></a>  
+                </td>
+            </tr>
+        </table>
+        
+    <div class="MainContentdiv">
+
+        <!-- Added aria-label to indicate purpose of this section -->
+        <div id="MainContent_currentPriceDiv" class="mainBody" aria-label="Current Price Section">
+             <table class="Disclaimer">
+                            
+                            
+                        </table>
+            <table class="Choices">
+                <tr >
+                    <td>
+                        <table id="MainContent_UtilityTable" style="width:80%;">
+	<tr style="background-color: #4f81bd;">
+		<td style="padding-top:.5%;padding-left:.5%;">
+                                    <!-- Added alt attribute for image accessibility -->
+                                    <img id="MainContent_imgFirstChoiceResidential" class="img" src="LogoHandler.ashx?UtilityId=8e4780c1-c392-45d5-a4c8-34439376ae5b" alt="First Choice Residential Image" style="background-color:White;height:75px;width:150px;" />
+                                </td>
+		<td>
+                                    <!-- Added aria-live attribute to announce changes -->
+                                    <label id="MainContent_lblDistributionUtility" style="color:white;" aria-live="polite">Liberty</label>                               
+                                    <label id="MainContent_lblDistributionUtilityPhone" style="color:white;" aria-live="polite">1-800-375-7413</label>                               
+                                </td>
+		<td>
+                                    <b style="color:white;">Rate Schedule: </b>
+                                    <label id="MainContent_lblRateSchedule" style="color:white;" aria-live="polite">FR</label>                                
+                                </td>
+		<td>
+                                    <label id="MainContent_lblSchedule" style="color:White;" aria-live="polite">February 2026 through July 2026</label> 
+                                </td>
+		<td>
+                                    <b style="color:white;">Per KWh:</b> 
+                                    <b>
+                                        <label id="MainContent_lblDistributionUtilityTarrif" style="color:white;" aria-live="polite">$0.13735</label>                                   
+                                    </b>
+                                </td>
+	</tr>
+</table>
+
+                        <table style="width:100%;">
+                            <tr>
+                                <td style="padding-left:89.3%;">
+                                    <!-- Improved button accessibility by adding aria-labels -->
+                                    <div style="float:left;width:50%;">
+                                        <input type="submit" name="ctl00$MainContent$BtnCompare" value="Compare" id="MainContent_BtnCompare" class="button" aria-label="Compare Plans Button" style="background-color:Green;height:35px;width:60px;" />
+                                    </div>
+                                    <div style="float:right;width:50%;">
+                                        <input type="submit" name="ctl00$MainContent$BtnClear" value="Clear" id="MainContent_BtnClear" class="button" aria-label="Clear Selections Button" style="background-color:Gray;height:35px;width:60px;" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                       
+
+                        <!-- Improved the Repeater for better accessibility -->
+                        <div class="dvCompareList" aria-label="Compare Supplier List">
+                            
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_0" class="img" src="SupplierLogoHandler.ashx?SupplierId=fb77d34e-0281-4eab-941c-5e8448ca9cfc" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_0" class="PlanName" style="font-weight:bold;">White Mountain Select 12 Month Term</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_0" style="font-weight:bold;">Per KWh: $0.13100</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_0" style="font-weight:bold;">Last Update: 5/1/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>Ambit Energy</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-877-282-6248</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 12 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_0" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl00$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_0">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl00$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_0" value="b1a2617f-cefa-41ca-9d6d-84b289a83bee" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://ww2.ambitenergy.com/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Only available to new Ambit customers
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_1" class="img" src="SupplierLogoHandler.ashx?SupplierId=fb77d34e-0281-4eab-941c-5e8448ca9cfc" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_1" class="PlanName" style="font-weight:bold;">Ultimate Perks 12</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_1" style="font-weight:bold;">Per KWh: $0.13600</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_1" style="font-weight:bold;">Last Update: 5/1/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>Ambit Energy</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-877-282-6248</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 12 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_1" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl01$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_1">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl01$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_1" value="fec148e9-46cd-4e5a-8aeb-ac660441a372" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://ww2.ambitenergy.com/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Only available to new Ambit customers
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_2" class="img" src="SupplierLogoHandler.ashx?SupplierId=fb77d34e-0281-4eab-941c-5e8448ca9cfc" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_2" class="PlanName" style="font-weight:bold;">Winter Break 24</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_2" style="font-weight:bold;">Per KWh: $0.17800</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_2" style="font-weight:bold;">Last Update: 5/1/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>Ambit Energy</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-877-282-6248</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 24 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_2" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl02$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_2">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl02$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_2" value="4b0e0a18-334c-4164-a9e2-bf7654f5af0d" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://ww2.ambitenergy.com/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> As temperatures drop, your savings will rise. Get 50% off your energy charges on bill cycles beginning November 1st through the end of February. Only available to new Ambit customers
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_3" class="img" src="SupplierLogoHandler.ashx?SupplierId=fb77d34e-0281-4eab-941c-5e8448ca9cfc" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_3" class="PlanName" style="font-weight:bold;">Winter Break 12</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_3" style="font-weight:bold;">Per KWh: $0.17300</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_3" style="font-weight:bold;">Last Update: 5/1/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>Ambit Energy</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-877-282-6248</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 12 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_3" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl03$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_3">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl03$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_3" value="13e80ff7-1bdc-42ca-af76-faf7317f9ff6" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://ww2.ambitenergy.com/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> As temperatures drop, your savings will rise. Get 50% off your energy charges on bill cycles beginning November 1st through the end of February. Only available to new Ambit customers
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_4" class="img" src="SupplierLogoHandler.ashx?SupplierId=69f63fc1-7d1b-49a5-80ef-e0db960d6da9" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_4" class="PlanName" style="font-weight:bold;">Simply Clean 12</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_4" style="font-weight:bold;">Per KWh: $0.13700</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_4" style="font-weight:bold;">Last Update: 5/1/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>CleanChoice Energy</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-800-460-4900</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 12 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_4" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl04$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_4">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl04$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_4" value="f842806e-747b-4619-baf4-4e1233341d03" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://mycleanchoice.com/nhshoppera12" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 100.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> This web-exclusive pricing is available for new customers only for a limited time at https://mycleanchoice.com/nhshoppera12. Get 100% renewable energy with CleanChoice Energy. Sign up today!
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_5" class="img" src="SupplierLogoHandler.ashx?SupplierId=002c95a9-0460-4ac3-8a13-7e0566d57236" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_5" class="PlanName" style="font-weight:bold;">Easy Choice 3 - Residential</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_5" style="font-weight:bold;">Per KWh: $0.11290</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_5" style="font-weight:bold;">Last Update: 5/27/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>ENH Power</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-833-488-3147</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 3 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_5" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl05$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_5">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl05$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_5" value="943929da-2bc8-4d73-8d1c-182802a6ebc6" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> No
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://www.providerpower.com/nh/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Enjoy 3 months of a fixed rate with no MSF and no ETF. Only new customers are eligible to sign up for this plan online. For existing customers with ENH, please call (844) 821-8030 to renew.
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_6" class="img" src="SupplierLogoHandler.ashx?SupplierId=002c95a9-0460-4ac3-8a13-7e0566d57236" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_6" class="PlanName" style="font-weight:bold;">Simple Power 12 - Residential</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_6" style="font-weight:bold;">Per KWh: $0.14250</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_6" style="font-weight:bold;">Last Update: 5/27/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>ENH Power</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>1-833-488-3147</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 12 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_6" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl06$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_6">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl06$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_6" value="aac048b2-b832-4e46-af78-77537b3df0bc" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> $100.00
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://www.providerpower.com/nh/" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Enjoy 12 months of a fixed rate with no MSF and a 100 dollar ETF. Only new customers are eligible to sign up for this plan online. For existing customers with ENH, please call (844) 821-8030 to renew.
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_7" class="img" src="SupplierLogoHandler.ashx?SupplierId=592abc94-f656-4f1f-8ba9-b8e6f6622c50" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_7" class="PlanName" style="font-weight:bold;">16 Month Standard Fixed</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_7" style="font-weight:bold;">Per KWh: $0.13290</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_7" style="font-weight:bold;">Last Update: 5/6/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>North American Power & Gas, LLC</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>877-572-9965</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 16 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_7" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl07$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_7">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl07$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_7" value="8faa98c1-38dd-4525-97c5-33a1ae71c413" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> $10.00
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://www.napower.com" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Early termination fee: 10.00 dollars for each month remaining in your contract.
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+                                    <table class="tblCompareList" style="width: 100%; background-color: white; border-collapse: collapse;">
+                                        <!-- LOGO AND PLAN NAME -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-top-left-radius: 5px; border-top-right-radius: 5px;"></td>
+                                            <td colspan="1" style="text-align:center; width: 120px;">
+                                                <!-- Added alt attribute to the image -->
+                                                <img id="MainContent_CompareSupplierID_Image1_8" class="img" src="SupplierLogoHandler.ashx?SupplierId=592abc94-f656-4f1f-8ba9-b8e6f6622c50" alt="Supplier Logo" style="max-width: 100px; max-height: 50px;" />
+                                            </td>
+                                            <td colspan="3" style="text-align:left;padding-left:25px;">
+                                                <span id="MainContent_CompareSupplierID_lblPlanName_8" class="PlanName" style="font-weight:bold;">14 Month Standard Fixed</span>
+                                            </td>
+                                            <td colspan="1" class="" style="text-align: center; padding-right: 10px;">
+                                                <span id="MainContent_CompareSupplierID_lblKWh_8" style="font-weight:bold;">Per KWh: $0.13590</span>
+                                                <br />
+                                                <span id="MainContent_CompareSupplierID_lblLastUpdate_8" style="font-weight:bold;">Last Update: 5/6/2026</span>
+                                            </td>
+                                        </tr>
+                                        <!-- SUPPLIER NAME, PRICING, AND MONTHLY CHARGE -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="CompanyName" style="text-align:left;">
+                                                <b>North American Power & Gas, LLC</b>
+                                            </td>
+                                            <td colspan="2" class="Pricing">
+                                                <b>Pricing:</b> Fixed
+                                            </td>
+                                            <td class="MonthlyFee">
+                                                <b>Monthly Charge:</b> No
+                                            </td>
+                                            <td class="CompareCheckBoxTop" style="text-align:center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- PHONE, INTRO PRICE, AND TERM LENGTH -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td class="PhoneNumber" style="text-align:left;">
+                                                <b>877-572-9965</b>
+                                            </td>
+                                            <td colspan="2" class="IntroPrice">
+                                                <b>Intro Price:</b> No
+                                            </td>
+                                            <td class="RateGoodFor">
+                                                <b>Rate Good for:</b> 14 months
+                                            </td>
+                                            <td style="text-align: center;background-color:green;">
+                                                <span aria-label="Compare Checkbox"><input id="MainContent_CompareSupplierID_ckBxCompare_8" type="checkbox" name="ctl00$MainContent$CompareSupplierID$ctl08$ckBxCompare" /><label for="MainContent_CompareSupplierID_ckBxCompare_8">&nbsp Compare</label></span>
+                                                <input type="hidden" name="ctl00$MainContent$CompareSupplierID$ctl08$hfPlanID" id="MainContent_CompareSupplierID_hfPlanID_8" value="f64cd210-c3fc-4dd5-8da6-d564a3b0600a" />
+                                            </td>
+                                        </tr>
+                                        <!-- RENEWABLE ENERGY, CANCELLATION FEE, RATE END -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td></td>
+                                            <td colspan="2" class="CancellationFee">
+                                                <b>Cancellation Fee:</b> $10.00
+                                            </td>
+                                            <td class="RateEnd">
+                                                <b>Rate End:</b> *Last meter read*
+                                            </td>
+                                            <td class="CompareCheckBoxBottom" style="text-align: center;background-color:green;"></td>
+                                        </tr>
+                                        <!-- SIGN UP LINK, LEARN MORE, AND COMMENTS -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green;"></td>
+                                            <td colspan="1">
+                                                <!-- Added more descriptive link texts -->
+                                                <a href="http://www.napower.com" class="button" target="_blank" style="display: inline-block; margin-right: 10px;" aria-label="Sign Up for Supplier Plan">Sign Up!</a>
+                                                <a href="https://www.energy.nh.gov/consumers/choosing-energy-supplier/choosing-energy-supplier-frequently-asked-questions" class="button" target="_blank" style="display: inline-block;" aria-label="Learn More About Choosing Energy Supplier">Learn More</a>
+                                            </td>
+                                            <td colspan="2" class="RenewableEnergy">
+                                                <b>Renewable Energy:</b> 0.00 %
+                                            </td>
+                                            <td colspan="2" class="Comments">
+                                                <b>Comments:</b> Early termination fee: 10.00 dollars for each month remaining in your contract.
+                                            </td>
+                                        </tr>
+                                        <!-- BOTTOM BORDER -->
+                                        <tr>
+                                            <td style="width:1%; background-color: green; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;"></td>
+                                            <td colspan="5"></td>
+                                        </tr>
+                                    </table>
+                                
+
+                            
+
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    </form>
+</body>
+</html>
