@@ -1,16 +1,5 @@
 [
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.112,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://account.smartenergy.com/new-hampshire?utm_source=PUC_Site_NH&utm_medium=referral&utm_campaign=exclusive_online_rate",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 4",
     "rate": 0.1167,
@@ -40,6 +29,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.134,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://account.smartenergy.com/new-hampshire?utm_source=PUC_Site_NH&utm_medium=referral&utm_campaign=exclusive_online_rate",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -77,17 +77,6 @@
     "utility_name": "Unitil (UES)"
   },
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.109,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://account.smartenergy.com/new-hampshire?utm_source=PUC_Site_NH&utm_medium=referral&utm_campaign=exclusive_online_rate",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
     "name": "Town Square Energy",
     "plan": "Power Your Today Variable - 1",
     "rate": 0.1126,
@@ -117,6 +106,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.132,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://account.smartenergy.com/new-hampshire?utm_source=PUC_Site_NH&utm_medium=referral&utm_campaign=exclusive_online_rate",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
