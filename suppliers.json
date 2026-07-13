@@ -33,17 +33,6 @@
     "utility_name": "Unitil (UES)"
   },
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.134,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://smartenergy.com",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 18",
     "rate": 0.1497,
@@ -62,6 +51,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.162,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://smartenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -121,17 +121,6 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.132,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://smartenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 18",
     "rate": 0.1497,
@@ -150,6 +139,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.159,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://smartenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
