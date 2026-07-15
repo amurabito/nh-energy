@@ -1,9 +1,9 @@
 [
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
-    "rate": 0.1167,
-    "term": "4 Months",
+    "plan": "Power Your Today Variable - 1",
+    "rate": 0.1202,
+    "term": "1 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -12,9 +12,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Today Variable - 1",
-    "rate": 0.1202,
-    "term": "1 Months",
+    "plan": "Power Your Tomorrow Fixed - 4",
+    "rate": 0.1297,
+    "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -46,7 +46,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Today Fixed - 4",
-    "rate": 0.1511,
+    "rate": 0.1516,
     "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -68,7 +68,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Today Fixed - 4 Green",
-    "rate": 0.1785,
+    "rate": 0.179,
     "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -100,9 +100,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
-    "rate": 0.1167,
-    "term": "4 Months",
+    "plan": "Power Your Today Variable - 1 Green",
+    "rate": 0.1226,
+    "term": "1 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -111,9 +111,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Today Variable - 1 Green",
-    "rate": 0.1226,
-    "term": "1 Months",
+    "plan": "Power Your Tomorrow Fixed - 4",
+    "rate": 0.1297,
+    "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -134,7 +134,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Today Fixed - 4",
-    "rate": 0.1522,
+    "rate": 0.1532,
     "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -167,7 +167,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Today Fixed - 4 Green",
-    "rate": 0.1785,
+    "rate": 0.1806,
     "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
