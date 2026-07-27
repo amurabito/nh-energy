@@ -33,6 +33,28 @@
     "utility_name": "Unitil (UES)"
   },
   {
+    "name": "Ambit Energy",
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.1329,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.1379,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 18",
     "rate": 0.1497,
@@ -121,6 +143,28 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
+    "name": "Ambit Energy",
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.1329,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.1379,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 18",
     "rate": 0.1497,
@@ -185,5 +229,49 @@
     "link": "http://smartenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.133,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Liberty",
+    "utility_name": "Liberty Utilities"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.138,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Liberty",
+    "utility_name": "Liberty Utilities"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.1349,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "NHEC",
+    "utility_name": "NH Electric Co-op"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.1399,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "NHEC",
+    "utility_name": "NH Electric Co-op"
   }
 ]
