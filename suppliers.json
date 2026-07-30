@@ -1,9 +1,9 @@
 [
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Today Variable - 1",
-    "rate": 0.1202,
-    "term": "1 Months",
+    "plan": "Power Your Tomorrow Fixed - 4",
+    "rate": 0.1097,
+    "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -12,9 +12,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
-    "rate": 0.1297,
-    "term": "4 Months",
+    "plan": "Power Your Today Variable - 1",
+    "rate": 0.1202,
+    "term": "1 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -56,9 +56,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 18",
+    "plan": "Power Your Tomorrow Fixed - 16",
     "rate": 0.1497,
-    "term": "18 Months",
+    "term": "16 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -101,13 +101,24 @@
   {
     "name": "SmartEnergy",
     "plan": "SmartEnergy - $100 Prepaid Card",
-    "rate": 0.193,
+    "rate": 0.23,
     "term": "6 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://smartenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Tomorrow Fixed - 4",
+    "rate": 0.1087,
+    "term": "4 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
   },
   {
     "name": "Town Square Energy",
@@ -125,17 +136,6 @@
     "plan": "Power Your Today Variable - 1 Green",
     "rate": 0.1226,
     "term": "1 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
-    "rate": 0.1297,
-    "term": "4 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -166,9 +166,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 18",
-    "rate": 0.1497,
-    "term": "18 Months",
+    "plan": "Power Your Tomorrow Fixed - 16",
+    "rate": 0.1517,
+    "term": "16 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -222,7 +222,7 @@
   {
     "name": "SmartEnergy",
     "plan": "SmartEnergy - $100 Prepaid Card",
-    "rate": 0.181,
+    "rate": 0.224,
     "term": "6 Months",
     "cancellation_fee": "No",
     "intro": "No",
