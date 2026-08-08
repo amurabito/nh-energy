@@ -1,9 +1,9 @@
 [
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
+    "plan": "Power Your Tomorrow Fixed - 3",
     "rate": 0.1097,
-    "term": "4 Months",
+    "term": "3 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -77,17 +77,6 @@
     "utility_name": "Unitil (UES)"
   },
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.162,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://smartenergy.com",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
     "name": "Town Square Energy",
     "plan": "Power Your Today Fixed - 4 Green",
     "rate": 0.179,
@@ -95,6 +84,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.188,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://smartenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -111,9 +111,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 4",
+    "plan": "Power Your Tomorrow Fixed - 3",
     "rate": 0.1087,
-    "term": "4 Months",
+    "term": "3 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -187,17 +187,6 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.159,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://smartenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
     "name": "XOOM Energy New Hampshire, LLC",
     "plan": "SimpleClean",
     "rate": 0.1649,
@@ -216,6 +205,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.186,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://smartenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
