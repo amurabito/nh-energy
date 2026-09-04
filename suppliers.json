@@ -11,28 +11,6 @@
     "utility_name": "Unitil (UES)"
   },
   {
-    "name": "Town Square Energy",
-    "plan": "Power Your Today Variable - 1",
-    "rate": 0.1202,
-    "term": "1 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Today Variable - 1 Green",
-    "rate": 0.1302,
-    "term": "1 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
     "name": "Ambit Energy",
     "plan": "White Mountain Select 12 Month Term",
     "rate": 0.1411,
@@ -40,6 +18,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.ambitenergy.com/",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Today Variable - 1",
+    "rate": 0.1431,
+    "term": "1 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -59,6 +48,17 @@
     "plan": "Power Your Tomorrow Fixed - 16",
     "rate": 0.1497,
     "term": "16 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Today Variable - 1 Green",
+    "rate": 0.1531,
+    "term": "1 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
