@@ -68,8 +68,8 @@
   {
     "name": "SmartEnergy",
     "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.188,
-    "term": "6 Months",
+    "rate": 0.155,
+    "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://smartenergy.com",
@@ -176,6 +176,17 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
+    "name": "SmartEnergy",
+    "plan": "SmartEnergy - Web Only Rate",
+    "rate": 0.153,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://smartenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
     "name": "XOOM Energy New Hampshire, LLC",
     "plan": "SimpleClean",
     "rate": 0.1649,
@@ -183,17 +194,6 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.xoomenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
-    "name": "SmartEnergy",
-    "plan": "SmartEnergy - Web Only Rate",
-    "rate": 0.186,
-    "term": "6 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://smartenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
