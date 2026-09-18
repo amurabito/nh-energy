@@ -2,7 +2,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 3",
-    "rate": 0.1097,
+    "rate": 0.1297,
     "term": "3 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -18,6 +18,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.ambitenergy.com/",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Tomorrow Fixed - 14",
+    "rate": 0.1427,
+    "term": "14 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -40,17 +51,6 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.ambitenergy.com/",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 16",
-    "rate": 0.1497,
-    "term": "16 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -112,7 +112,7 @@
   {
     "name": "Town Square Energy",
     "plan": "Power Your Tomorrow Fixed - 3",
-    "rate": 0.1087,
+    "rate": 0.1297,
     "term": "3 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -125,6 +125,17 @@
     "plan": "Power Your Today Variable - 1",
     "rate": 0.1397,
     "term": "1 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Tomorrow Fixed - 14",
+    "rate": 0.1397,
+    "term": "14 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -158,17 +169,6 @@
     "plan": "Power Your Today Variable - 1 Green",
     "rate": 0.1497,
     "term": "1 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 16",
-    "rate": 0.1517,
-    "term": "16 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
