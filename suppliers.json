@@ -11,21 +11,21 @@
     "utility_name": "Unitil (UES)"
   },
   {
-    "name": "Ambit Energy",
-    "plan": "White Mountain Select 12 Month Term",
-    "rate": 0.1411,
-    "term": "12 Months",
+    "name": "Town Square Energy",
+    "plan": "Power Your Tomorrow Fixed - 14",
+    "rate": 0.1427,
+    "term": "14 Months",
     "cancellation_fee": "No",
     "intro": "No",
-    "link": "http://www.ambitenergy.com/",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 14",
+    "plan": "Power Your Tomorrow Fixed - 24",
     "rate": 0.1427,
-    "term": "14 Months",
+    "term": "24 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -45,8 +45,8 @@
   },
   {
     "name": "Ambit Energy",
-    "plan": "Ultimate Perks 12",
-    "rate": 0.1466,
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.15,
     "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -62,6 +62,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.155,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -133,9 +144,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 14",
+    "plan": "Power Your Tomorrow Fixed - 24",
     "rate": 0.1397,
-    "term": "14 Months",
+    "term": "24 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -143,24 +154,13 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
-    "name": "Ambit Energy",
-    "plan": "White Mountain Select 12 Month Term",
-    "rate": 0.1419,
-    "term": "12 Months",
+    "name": "Town Square Energy",
+    "plan": "Power Your Tomorrow Fixed - 14",
+    "rate": 0.1397,
+    "term": "14 Months",
     "cancellation_fee": "No",
     "intro": "No",
-    "link": "http://www.ambitenergy.com/",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
-    "name": "Ambit Energy",
-    "plan": "Ultimate Perks 12",
-    "rate": 0.1469,
-    "term": "12 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.ambitenergy.com/",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
@@ -176,6 +176,17 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
+    "name": "Ambit Energy",
+    "plan": "White Mountain Select 12 Month Term",
+    "rate": 0.152,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
     "name": "SmartEnergy",
     "plan": "SmartEnergy - Web Only Rate",
     "rate": 0.153,
@@ -183,6 +194,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://smartenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "Ambit Energy",
+    "plan": "Ultimate Perks 12",
+    "rate": 0.157,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.ambitenergy.com/",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
@@ -233,7 +255,7 @@
   {
     "name": "Ambit Energy",
     "plan": "White Mountain Select 12 Month Term",
-    "rate": 0.141,
+    "rate": 0.163,
     "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
@@ -244,7 +266,7 @@
   {
     "name": "Ambit Energy",
     "plan": "Ultimate Perks 12",
-    "rate": 0.146,
+    "rate": 0.168,
     "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
