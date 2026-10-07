@@ -89,20 +89,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Today Fixed - 8",
-    "rate": 0.1929,
-    "term": "8 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Unitil",
-    "utility_name": "Unitil (UES)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Today Fixed - 8 Green",
-    "rate": 0.2203,
-    "term": "8 Months",
+    "plan": "Power Your Today Fixed - 6",
+    "rate": 0.204,
+    "term": "6 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -117,6 +106,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://smartenergy.com",
+    "utility_id": "Unitil",
+    "utility_name": "Unitil (UES)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Today Fixed - 6 Green",
+    "rate": 0.2314,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Unitil",
     "utility_name": "Unitil (UES)"
   },
@@ -221,20 +221,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Today Fixed - 8",
-    "rate": 0.1942,
-    "term": "8 Months",
-    "cancellation_fee": "No",
-    "intro": "No",
-    "link": "http://www.townsquareenergy.com",
-    "utility_id": "Eversource",
-    "utility_name": "Eversource (PSNH)"
-  },
-  {
-    "name": "Town Square Energy",
-    "plan": "Power Your Today Fixed - 8 Green",
-    "rate": 0.2216,
-    "term": "8 Months",
+    "plan": "Power Your Today Fixed - 6",
+    "rate": 0.2071,
+    "term": "6 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -249,6 +238,17 @@
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://smartenergy.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
+    "name": "Town Square Energy",
+    "plan": "Power Your Today Fixed - 6 Green",
+    "rate": 0.2345,
+    "term": "6 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.townsquareenergy.com",
     "utility_id": "Eversource",
     "utility_name": "Eversource (PSNH)"
   },
