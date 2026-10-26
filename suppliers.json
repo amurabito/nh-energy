@@ -143,6 +143,17 @@
     "utility_name": "Eversource (PSNH)"
   },
   {
+    "name": "Discount Power, Inc.",
+    "plan": "PSNH_Fix_R_1399",
+    "rate": 0.1399,
+    "term": "12 Months",
+    "cancellation_fee": "No",
+    "intro": "No",
+    "link": "http://www.discountpowerinc.com",
+    "utility_id": "Eversource",
+    "utility_name": "Eversource (PSNH)"
+  },
+  {
     "name": "Town Square Energy",
     "plan": "Power Your Today Variable - 1 Green",
     "rate": 0.1497,
