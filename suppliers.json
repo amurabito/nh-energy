@@ -1,9 +1,9 @@
 [
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 14",
-    "rate": 0.1427,
-    "term": "14 Months",
+    "plan": "Power Your Tomorrow Fixed - 12",
+    "rate": 0.1397,
+    "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -133,9 +133,9 @@
   },
   {
     "name": "Town Square Energy",
-    "plan": "Power Your Tomorrow Fixed - 14",
+    "plan": "Power Your Tomorrow Fixed - 12",
     "rate": 0.1397,
-    "term": "14 Months",
+    "term": "12 Months",
     "cancellation_fee": "No",
     "intro": "No",
     "link": "http://www.townsquareenergy.com",
@@ -144,7 +144,7 @@
   },
   {
     "name": "Discount Power, Inc.",
-    "plan": "PSNH_Fix_R_1399",
+    "plan": "Discount Power 12-M Fixed",
     "rate": 0.1399,
     "term": "12 Months",
     "cancellation_fee": "No",
